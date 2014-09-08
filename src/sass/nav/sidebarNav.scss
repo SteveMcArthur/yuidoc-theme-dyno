@@ -22,4 +22,18 @@
     }
   }
 
+  .filterInput {
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    line-height: 40px;
+    font-size: 18px;
+    font-weight: 300;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+    border: 1px solid #DFDFDF;
+    padding-left: 2px;
+    color: #444;
+  }
+
 }

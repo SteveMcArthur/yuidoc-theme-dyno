@@ -5,7 +5,6 @@
     var repositories = angular.module("app.repositories", ["ngResource"]);
 
     repositories.service("dbProvider", function ($resource) {
-
         return {
             read: function(yuidocDataPath){
 
@@ -15,7 +14,6 @@
                         //.catch(helpers.toErrorLog);
             }
         };
-
     });
 
     repositories.service("dataRepository", function (dbProvider) {
@@ -63,7 +61,6 @@
 
         };
     });
-
 
     /* decorators */
     repositories.config(["$provide", "cachedRepository", function ($provide, cachedRepository) {

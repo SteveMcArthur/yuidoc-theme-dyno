@@ -6,17 +6,7 @@
     controllers.controller("appController",
         function appController($scope, apiService) {
 
-            var moduleFilterText = "";
-            Object.defineProperty($scope, "moduleFilterText", {
-                get: function () {
-                    return moduleFilterText;
-                },
-                set: function (newValue) {
-                    moduleFilterText = newValue;
-                    $scope.apply()
-                }
-            });
-
+            // adds loading state object
             $scope.getClassItemTypeColour = function (classItemType) {
                 switch (classItemType) {
                     case "module":
@@ -45,14 +35,27 @@
             // fetch the data
             apiService.get()
                 .then(function (data) {
-                    $scope.data = data;
+                    $scope.project = data.project;
+                    $scope.modules = data.modules;
+                    $scope.classes = data.classes;
+                    $scope.classItems = data.classitems;
                 });
+
         }
     );
 
-    controllers.controller("docController",
-        function docController($scope, musicMathService) {
+    controllers.controller("sidebarController",
+        function sidebarController($scope) {
 
+            var moduleFilterText = "";
+            Object.defineProperty($scope, "moduleFilterText", {
+                get: function () {
+                    return moduleFilterText;
+                },
+                set: function (newValue) {
+                    moduleFilterText = newValue;
+                }
+            });
 
         }
     );

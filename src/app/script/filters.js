@@ -5,9 +5,9 @@
     var module = angular.module("app.filters", []);
 
     /**
-     * Url encode filter
+     * Id encode filter
      */
-    module.filter('urlEncode', function () {
+    module.filter('idEncode', function () {
         return function (inValue) {
             return inValue.replace(/[$]/g, "dollar_");
         };
