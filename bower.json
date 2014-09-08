@@ -1,0 +1,21 @@
+{
+  "name": "yuidoc-dynam-template",
+  "description": "yuidoc angular template"
+  "version": "0.0.0",
+  "authors": [
+    "pflannery <pflannery@users.noreply.github.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "*"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "animate.css": "~3.2.0",
+    "angular": "~1.2.23",
+    "angular-resource": "~1.2.23",
+    "angular-route": "~1.2.23",
+    "marked": "~0.3.2",
+    "angular-sanitize": "~1.2.23"
+  }
+}

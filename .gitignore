@@ -1,0 +1,16 @@
+# Temp Files
+**/*.log
+
+# Build Files
+.idea/
+.sass-cache/
+**/karma/coverage/
+bower_components/
+node_modules/
+out/
+doc/
+
+# =====================================
+# CUSTOM MODIFICATIONS
+
+# None
