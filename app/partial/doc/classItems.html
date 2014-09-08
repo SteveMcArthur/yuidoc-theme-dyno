@@ -1,9 +1,9 @@
 <div class="classItem"
-     ng-repeat="classItem in data.classitems | filter:{'module':module.name}:true | filter:{'class': class.name}:true | orderBy:['itemtype', 'name']">
+     ng-repeat="classItem in classItems | filter:{'module':module.name}:true | filter:{'class': class.name}:true | orderBy:['itemtype', 'name']">
 
     <div>
         <div class="heading">
-            <h3 id="{{module.name | urlEncode}}_{{class.name | urlEncode}}_{{classItem.name | urlEncode}}"
+            <h3 id="{{module.name | idEncode}}_{{class.name | idEncode}}_{{classItem.name | idEncode}}"
                 class="page-header">
                 <i class="fa fa-cube" ng-style="{color: getClassItemTypeColour(classItem.itemtype)}"></i><span
                     ng-bind="classItem.name"></span>

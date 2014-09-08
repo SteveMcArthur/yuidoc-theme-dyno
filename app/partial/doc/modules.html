@@ -1,13 +1,13 @@
-<div class="modules" ng-repeat="module in data.modules">
+<div class="modules" ng-repeat="module in modules">
 
     <div class="heading">
-        <h1 id="{{module.name | urlEncode}}" class="page-header">
-            <i class="fa fa-cube" ng-style="{color: getClassItemTypeColour('module')}"/><span ng-bind="module.name"/>
+        <h1 id="{{module.name | idEncode}}" class="page-header">
+            <i class="fa fa-cube" ng-style="{color: getClassItemTypeColour('module')}"></i><span ng-bind="module.name"></span>
         </h1>
     </div>
 
     <div ng-if="module.description !== undefined" class="summary description markdown-body"
-         ng-bind-html="marked(module.description)"/>
+         ng-bind-html="marked(module.description)"></div>
 
     <ng-include src="'app/partial/doc/classes.html'"></ng-include>
 

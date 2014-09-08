@@ -46,9 +46,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" style="color: white;" href="#" ng-bind="data.project.name"></a>
-                    <span class="navbar-brand text-muted" ng-bind="'v' + data.project.version"></span>
-                    <span class="navbar-brand" style="color: white;" ng-bind="data.project.description"></span>
+                    <a class="navbar-brand" style="color: white;" href="#" ng-bind="project.name"></a>
+                    <span class="navbar-brand text-muted" ng-bind="'v' + project.version"></span>
+                    <span class="navbar-brand" style="color: white;" ng-bind="project.description"></span>
                 </div>
                 <!--<div>-->
                 <!--<button type="button" class="btn btn-success navbar-btn">-->
@@ -60,26 +60,29 @@
     </header>
     <div class="row">
         <div class="col-sm-3 col-md-2" role="navigation">
-            <div class="sidebarContainer">
+            <div class="sidebarContainer" ng-controller="sidebarController">
                 <ng-include src="'app/partial/sidebar/filter-sidebar.html'"></ng-include>
                 <ng-include src="'app/partial/sidebar/modules-sidebar.html'"></ng-include>
             </div>
         </div>
-        <div class="col-sm-9 col-md-10 docMain">
+        <div class="col-sm-9 col-md-10 docMain" scroll-spy="" data-target="#apiTree" style="position: relative;">
             <ng-include src="'app/partial/doc/modules.html'"></ng-include>
         </div>
     </div>
 </div>
 
+</body>
+
 <script type="application/javascript" src="assets/lib/jquery/easing/jquery.easing.min.js"></script>
-<script type="application/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
 <script type="application/javascript" src="bower_components/marked/lib/marked.js"></script>
 <script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
+<script type="application/javascript" src="app/script/respositories.js"></script>
 <script type="application/javascript" src="app/script/services.js"></script>
 <script type="application/javascript" src="app/script/directives.js"></script>
 <script type="application/javascript" src="app/script/filters.js"></script>
 <script type="application/javascript" src="app/script/controllers.js"></script>
 <script type="application/javascript" src="app/script/app.js"></script>
+<script type="application/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
-</body>
 </html>
