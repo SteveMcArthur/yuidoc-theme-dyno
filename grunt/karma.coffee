@@ -17,8 +17,8 @@ module.exports = (grunt) ->
 		browsers: ['IE']
 		singleRun: false
 
-	phantomjs:
-		browsers: ['PhantomJS']
+	singleRunFirefox:
+		browsers: ['Firefox']
 		singleRun: true
 
 	all:

@@ -1,8 +1,15 @@
 # entry point
 module.exports = (grunt) ->
+
 	taskName = 'runner'
 
 	grunt.task.registerMultiTask(taskName, '', ->
-		# jshint then run karma config
-		grunt.task.run ["jshint:compile", "karma:" + this.target]
+	
+		# clean, compile then run karma
+		grunt.task.run [
+			"clean:testArtifacts"
+			"compile"
+			"karma:"+this.target
+		]
+		
 	)

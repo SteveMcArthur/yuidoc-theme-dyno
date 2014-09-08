@@ -1,10 +1,10 @@
 (function () {
     "use strict";
 
-    var controllers = angular.module("app.controllers", ["app.services", "ngResource", "ngSanitize"]);
+    var controllers = angular.module("app.controllers", ["app.services", "ngSanitize"]);
 
     controllers.controller("appController",
-        function appController($scope, $resource) {
+        function appController($scope, apiService) {
 
             var moduleFilterText = "";
             Object.defineProperty($scope, "moduleFilterText", {
@@ -16,12 +16,6 @@
                     $scope.apply()
                 }
             });
-
-            var ApiData = $resource('assets/data.json', {});
-            ApiData.get()
-                .$promise.then(function (data) {
-                    $scope.data = data;
-                });
 
             $scope.getClassItemTypeColour = function (classItemType) {
                 switch (classItemType) {
@@ -47,6 +41,12 @@
             });
 
             $scope.marked = window.marked;
+
+            // fetch the data
+            apiService.get()
+                .then(function (data) {
+                    $scope.data = data;
+                });
         }
     );
 
