@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="noJS" lang="en" ng-app="app" ng-controller="appController">
 <head>
-    <title>{{project.name}}</title>
+    <title ng-bind="project.name"></title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content=""/>
+    <meta name="description" content="{{project.description}}"/>
     <meta name="keywords" content=""/>
     <meta name="copyright" content=""/>
     <meta name="google-site-verification" content=""/>
