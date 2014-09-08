@@ -11,10 +11,13 @@ module.exports = (grunt, gruntRootPath) ->
 	env.EXTD_PATH = pathUtil.join(env.APP_DIR, ".cake")
 	env.PACKAGE_PATH = pathUtil.join(env.APP_DIR, "package.json")
 	env.PACKAGE_DATA = require(env.PACKAGE_PATH)
+
 	env.SRC_DIR = pathUtil.join(env.APP_DIR, "src")
 	env.OUT_DIR = pathUtil.join(env.APP_DIR, "out")
 
 	env.MODULES_DIR = pathUtil.join(env.APP_DIR, "node_modules")
+	env.BOWER_DIR = pathUtil.join(env.APP_DIR, "bower_components")
+
 	env.BIN_DIR = pathUtil.join(env.MODULES_DIR, ".bin")
 	env.COFFEE = pathUtil.join(env.BIN_DIR, "coffee#{env.EXT}")
 
@@ -31,6 +34,7 @@ module.exports = (grunt, gruntRootPath) ->
 
 	env.SRC_FILE = pathUtil.join(env.SRC_DIR, outFilename + ".js")
 	env.OUT_BUNDLE_FILE = outFilename + ".js"
+	env.OUT_TEST_BUNDLE_FILE = outFilename + "-tests.js"
 	env.OUT_MIN_FILE = outFilename + ".min.js"
 	env.OUT_BUNDLE_MIN_FILE = outFilename + ".all.min.js"
 

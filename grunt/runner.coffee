@@ -1,5 +1,6 @@
 # entry point
 module.exports = (grunt) ->
+
 	all:
 		enabled: true
 	chrome:
@@ -8,5 +9,5 @@ module.exports = (grunt) ->
 		enabled: true
 	ie:
 		enabled: true
-	phantomjs:
+	singleRunFirefox:
 		enabled: true

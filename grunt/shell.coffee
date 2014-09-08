@@ -1,7 +1,6 @@
 # entry point
 module.exports = (grunt) ->
 
-	#================
 	"git.addWithAll":
 		command: "git add . -A"
 		options:
@@ -11,7 +10,6 @@ module.exports = (grunt) ->
 			execOptions:
 				cwd: "<%=env.APP_DIR%>"
 
-	#================
 	"git.commitPublish":
 		command: 'git commit -m "publishing distribution files"'
 		options:
@@ -21,7 +19,6 @@ module.exports = (grunt) ->
 			execOptions:
 				cwd: "<%=env.APP_DIR%>"
 
-	#================
 	"git.failIfChangePending":
 		command: "git add . -A"
 		options:
@@ -34,7 +31,6 @@ module.exports = (grunt) ->
 				console.log("failIfChangePending", stdout != 0);
 				done()
 
-	#================
 	"npm.publish":
 		command: "npm publish"
 		options:
@@ -44,7 +40,6 @@ module.exports = (grunt) ->
 			execOptions:
 				cwd: "<%=env.APP_DIR%>"
 
-	#================
 	"genDoc":
 		command: "yuidoc"
 		options:

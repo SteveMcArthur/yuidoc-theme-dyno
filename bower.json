@@ -1,6 +1,6 @@
 {
   "name": "yuidoc-dynam-template",
-  "description": "yuidoc angular template"
+  "description": "yuidoc angular template",
   "version": "0.0.0",
   "authors": [
     "pflannery <pflannery@users.noreply.github.com>"
@@ -16,6 +16,7 @@
     "angular-resource": "~1.2.23",
     "angular-route": "~1.2.23",
     "marked": "~0.3.2",
-    "angular-sanitize": "~1.2.23"
+    "angular-sanitize": "~1.2.23",
+    "querifyjs": "~0.6.0"
   }
 }
