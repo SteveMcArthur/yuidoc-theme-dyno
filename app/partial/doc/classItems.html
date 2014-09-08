@@ -1,0 +1,40 @@
+<div class="classItem"
+     ng-repeat="classItem in data.classitems | filter:{'module':module.name}:true | filter:{'class': class.name}:true | orderBy:['itemtype', 'name']">
+
+    <div>
+        <div class="heading">
+            <h3 id="{{module.name | urlEncode}}_{{class.name | urlEncode}}_{{classItem.name | urlEncode}}"
+                class="page-header">
+                <i class="fa fa-cube" ng-style="{color: getClassItemTypeColour(classItem.itemtype)}"></i><span
+                    ng-bind="classItem.name"></span>
+            </h3>
+        </div>
+
+        <div>
+            <span class="label label-primary" ng-bind="classItem.itemtype"></span>
+            <span ng-if="classItem.access==='private'" class="label label-primary">private</span>
+            <span ng-if="classItem.access===undefined" class="label label-primary">public</span>
+            <span ng-if="classItem.static===1" class="label label-primary">static</span>
+            <span ng-if="classItem.async===1" class="label label-primary">async</span>
+        </div>
+
+        <br/>
+
+        <div ng-if="classItem.description !== undefined" class="summary description markdown-body"
+             ng-bind-html="marked(classItem.description)"></div>
+
+        <br/>
+
+        <ng-include src="'app/partial/doc/classItem/'+classItem.itemtype+'.html'"></ng-include>
+
+        <div class="example" ng-if="classItem.example !== undefined">
+            <strong class="text-muted">Examples</strong>
+            <br/><br/>
+
+            <div class="markdown-body" ng-repeat="exampleItem in classItem.example"
+                 ng-bind-html="marked(exampleItem)"></div>
+        </div>
+
+    </div>
+
+</div>

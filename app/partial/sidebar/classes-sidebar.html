@@ -1,0 +1,12 @@
+<li class="tn" ng-repeat="(className, value) in module.classes">
+    <a class="ti ti-default"
+       href="#{{module.name | urlEncode}}_{{className | urlEncode}}"
+       scroll-to>
+        <i class="fa fa-cube" ng-style="{'color': getClassItemTypeColour('class')}"/><span ng-bind="className"/>
+    </a>
+    <ul id="{{module.name}}_{{className}}_properties"
+        class="tl"
+        role="menu">
+        <ng-include src="'app/partial/sidebar/class-items-sidebar.html'"></ng-include>
+    </ul>
+</li>
