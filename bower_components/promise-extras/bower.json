@@ -1,0 +1,37 @@
+{
+  "name": "promise-extras",
+  "version": "1.1.0",
+  "homepage": "https://github.com/pflannery/promise-extras",
+  "authors": [
+    "pflannery <pflannery@users.noreply.github.com>"
+  ],
+  "description": "A helper library for working with JS Promises",
+  "main": "./dist/promise-extras.min.js",
+  "moduleType": [
+    "node",
+    "browser"
+  ],
+  "keywords": [
+    "promise",
+    "async",
+    "helpers",
+    "extras",
+    "js",
+    "javascript",
+    "every"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "grunt*",
+    "lib",
+    "karma",
+    "package.json",
+    "yuidoc*",
+    "gh-pages"
+  ]
+}

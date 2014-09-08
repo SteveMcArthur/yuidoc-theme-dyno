@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html class="noJS" lang="en" ng-app="app">
+<html class="noJS" lang="en" ng-app="app" ng-controller="appController">
 <head>
-    <title></title>
+    <title>{{project.name}}</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
@@ -32,7 +32,7 @@
     })(document.documentElement)</script>
 
 </head>
-<body ng-controller="appController" scroll-to-offset="60">
+<body scroll-to-offset="60">
 
 <div class="container-fluid">
     <header class="header">

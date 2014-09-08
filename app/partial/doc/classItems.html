@@ -29,12 +29,16 @@
 
         <div class="example" ng-if="classItem.example !== undefined">
             <strong class="text-muted">Examples</strong>
-            <br/><br/>
+            <br/>
+            <br/>
 
-            <div class="markdown-body" ng-repeat="exampleItem in classItem.example"
-                 ng-bind-html="marked(exampleItem)"></div>
+            <div ng-repeat="exampleItem in classItem.example">
+                <div class="markdown-body" ng-repeat="exampleItem in classItem.example"
+                     ng-bind-html="marked(exampleItem)">
+                </div>
+                <br/>
+            </div>
         </div>
-
     </div>
 
 </div>
