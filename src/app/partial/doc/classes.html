@@ -1,0 +1,45 @@
+<div class="classes"
+         ng-repeat="(key, class) in classes | filter:{'module':module.name}:true | orderBy:['name']">
+
+    <div class="container-fluid">
+
+        <div class="heading">
+            <h2 id="{{module.name | idEncode}}_{{class.name | idEncode}}" class="page-header">
+                <i class="fa fa-cube" ng-style="{color: getClassItemTypeColour('class')}"></i><span
+                    ng-bind="class.name"></span>
+            </h2>
+        </div>
+
+        <div ng-if="class.extends.length > 0">
+            Extends <a href="#" ng-bind="class.extends"></a>
+        </div>
+
+        <div>
+            <span class="label label-primary">class</span>
+            <span ng-if="class.access==='private'" class="label label-primary">private</span>
+            <span ng-if="class.access===undefined" class="label label-primary">public</span>
+            <span ng-if="class.static===1" class="label label-primary">static</span>
+        </div>
+
+        <br/>
+
+        <div ng-if="class.description !== undefined" class="summary description markdown-body"
+             ng-bind-html="marked(class.description)"></div>
+
+        <div class="panel-body">
+
+            <div ng-if="class.is_constructor===1">
+                <strong class="text-muted">Constructor Syntax</strong>
+
+                <div class="bs-callout bs-callout-primary markdown-body">
+                    new <code>{{class.name}}</code>(<span ng-repeat="param in class.params" ng-bind="param.name"></span>)
+                </div>
+            </div>
+
+            <ng-include src="'app/partial/doc/classItems.html'"></ng-include>
+
+        </div>
+
+    </div>
+
+</div>
