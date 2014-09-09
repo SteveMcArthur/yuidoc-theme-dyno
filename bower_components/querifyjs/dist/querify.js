@@ -32,361 +32,384 @@
  *
  * ####NodeJs:
  *
-```javascript
-	// global QueryRunner instance
-	var querify = require("querifyjs");
+ ```javascript
+ // global QueryRunner instance
+ var querify = require("querifyjs");
 
-	//create a new QueryRunner instance
-	var QueryRunner = require("querifyjs").QueryRunner;
-	var querify = new QueryRunner(config, sharedContext);
-```
+ //create a new QueryRunner instance
+ var QueryRunner = require("querifyjs").QueryRunner;
+ var querify = new QueryRunner(config, sharedContext);
+ ```
  *
  * ####Browser:
  *
-```javascript
-	// global QueryRunner instance
-	var querify = window.querify;
+ ```javascript
+ // global QueryRunner instance
+ var querify = window.querify;
 
-	//create a new QueryRunner instance
-	var QueryRunner = window.QueryRunner;
-	var querify = new QueryRunner(config, sharedContext);
-```
+ //create a new QueryRunner instance
+ var QueryRunner = window.QueryRunner;
+ var querify = new QueryRunner(config, sharedContext);
+ ```
  *
  * @module QuerifyJs
  */
-(function() {
-	"use strict";
+(function () {
+    "use strict";
 
-	var isBrowser = typeof window !== "undefined",
-		$Promise, $promiseExtras;
+    var isBrowser = typeof window !== "undefined",
+        $Promise, $promiseExtras;
 
-	function resolveBrowserPromiseLib() {
-		if (window.Promise) {
-			return window.Promise;
-		} else {
-			throw new ReferenceError("Promise library could not be detected for this browser.");
-		}
-	}
+    function resolveBrowserPromiseLib() {
+        if (window.Promise) {
+            return window.Promise;
+        } else {
+            throw new ReferenceError("Promise library could not be detected for this browser.");
+        }
+    }
 
-	function resolveBrowserpromiseExtrasLib() {
-		if (window.promiseExtras) {
-			return window.promiseExtras;
-		} else {
-			throw new ReferenceError("Promise-extras library could not be detected for this browser.");
-		}
-	}
+    function resolveBrowserpromiseExtrasLib() {
+        if (window.promiseExtras) {
+            return window.promiseExtras;
+        } else {
+            throw new ReferenceError("Promise-extras library could not be detected for this browser.");
+        }
+    }
 
-	// attempt to get the Promise ref
-	if (isBrowser === true) {
-		$Promise = resolveBrowserPromiseLib();
-	} else {
-		$Promise = require("promise");
-	}
+    // attempt to get the Promise ref
+    if (isBrowser === true) {
+        $Promise = resolveBrowserPromiseLib();
+    } else {
+        $Promise = require("promise");
+    }
 
-	// attempt to get the Promise ref
-	if (isBrowser === true) {
-		$promiseExtras = resolveBrowserpromiseExtrasLib();
-	} else {
-		$promiseExtras = require("promise-extras");
-	}
+    // attempt to get the Promise ref
+    if (isBrowser === true) {
+        $promiseExtras = resolveBrowserpromiseExtrasLib();
+    } else {
+        $promiseExtras = require("promise-extras");
+    }
 
-	var library = (function(Promise, promiseExtras) {
+    var library = (function (Promise, promiseExtras) {
 
-		function logQuery() {
+        function logQuery() {
 
-			var args = [],
-				queryTrail = arguments[0],
-				argIndex;
+            var args = [],
+                queryTrail = arguments[0],
+                argIndex;
 
-			for (argIndex = 1; argIndex < arguments.length; argIndex++) {
-				args.push(arguments[argIndex]);
-			}
+            for (argIndex = 1; argIndex < arguments.length; argIndex++) {
+                args.push(arguments[argIndex]);
+            }
 
-			var newStackEntry = {
-				level: args[0],
-				operation: args[1]
-			};
+            var newStackEntry = {
+                level: args[0],
+                operation: args[1]
+            };
 
-			// store the new stack entry
-			queryTrail.push(newStackEntry);
+            // store the new stack entry
+            queryTrail.push(newStackEntry);
 
-		}
+        }
 
-		var defaultConfig = {
-			/**
-			 * Default compare methods.
-			 *
-			 * @class CompareMethods
-			 * @static
-			 *
-			 */
-			compareMethods: {
-				/**
-				 * Equality and type check. Uses ===
-				 * @method $equals
-				 * @param modelValue
-				 * @param testValue
-				 * @returns {boolean}
-				 */
-				$equals: function(modelValue, testValue) {
-					return modelValue === testValue;
-				},
-				/**
-				 * Regular expression
-				 * @method $regexp
-				 * @param modelValue
-				 * @param testValue
-				 * @returns {*}
-				 */
-				$regexp: function(modelValue, testValue) {
-					return testValue.test(modelValue)
-				},
-				/**
-				 * Match a {String} from the left
-				 * @method $left
-				 * @param modelValue
-				 * @param testValue
-				 * @returns {boolean}
-				 */
-				$left: function(modelValue, testValue) {
-					return modelValue.substring(0, testValue.length) === testValue;
-				},
-				/**
-				 * Matches a {String} from the right
-				 * @method $right
-				 * @param modelValue
-				 * @param testValue
-				 * @returns {boolean}
-				 */
-				$right: function(modelValue, testValue) {
-					var offset = modelValue.length - testValue.length;
-					return modelValue.substring(offset) === testValue;
-				},
-				/**
-				 * Typeof
-				 * @method $typeof
-				 * @param modelValue
-				 * @param testValue
-				 * @returns {boolean}
-				 */
-				$typeof: function(modelValue, testValue) {
-					return typeof modelValue === testValue;
-				},
-				/**
-				 * instanceof
-				 * @method $instanceof
-				 * @param modelValue
-				 * @param testValue
-				 * @returns {boolean}
-				 */
-				$instanceof: function(modelValue, testValue) {
-					return modelValue instanceof testValue;
-				},
-				/**
-				 * Converts the modelValue to lower case before making the comparison
-				 * @method $toLowerCase
-				 * @param modelValue
-				 * @param testValue
-				 * @returns {boolean}
-				 */
-				$toLowerCase: function(modelValue, testValue) {
-					return modelValue.toLowerCase() === testValue;
-				},
-				/**
-				 * Converts the modelValue to upper case before making the comparison
-				 * @method $toUpperCase
-				 * @param modelValue
-				 * @param testValue
-				 * @returns {boolean}
-				 */
-				$toUpperCase: function(modelValue, testValue) {
-					return modelValue.toUpperCase() === testValue;
-				},
-				/**
-				 * Matches the modelValue against an array of values
-				 * @method $inArray
-				 * @param modelValue
-				 * @param testArray
-				 * @returns {boolean}
-				 */
-				$inArray: function(modelValue, testArray) {
-					return testArray.indexOf(modelValue) !== -1;
-				},
-				/**
-				 * Matches the model property names against a single or an array of value(s)
-				 * @method $has
-				 * @param modelValue
-				 * @param testValue
-				 * @returns {boolean}
-				 */
-				$has: function(modelValue, testValue) {
-					if (testValue instanceof Array) {
-						return testValue.every(function(testItemValue) {
-							return (testItemValue in modelValue);
-						});
-					} else {
-						return testValue in modelValue;
-					}
-				},
+        var defaultConfig = {
+            /**
+             * Default compare methods.
+             *
+             * @class CompareMethods
+             * @static
+             *
+             */
+            compareMethods: {
                 /**
-                 * Matches a query against the models children properties. i.e. much like (return querify.one(model, query))
-                 * @method $queryOne
+                 * Equality and type check. Uses ===
+                 * @method $equals
                  * @param modelValue
                  * @param testValue
                  * @returns {boolean}
                  */
-                $queryOne: function(modelValue, testValue) {
-                    return executeQuery.call(this, modelValue, testValue, false);
+                $equals: function (modelValue, testValue) {
+                    return modelValue === testValue;
+                },
+                /**
+                 * Regular expression
+                 * @method $regexp
+                 * @param modelValue
+                 * @param testValue
+                 * @returns {*}
+                 */
+                $regexp: function (modelValue, testValue) {
+                    return testValue.test(modelValue)
+                },
+                /**
+                 * Match a {String} from the left
+                 * @method $left
+                 * @param modelValue
+                 * @param testValue
+                 * @returns {boolean}
+                 */
+                $left: function (modelValue, testValue) {
+                    return modelValue.substring(0, testValue.length) === testValue;
+                },
+                /**
+                 * Matches a {String} from the right
+                 * @method $right
+                 * @param modelValue
+                 * @param testValue
+                 * @returns {boolean}
+                 */
+                $right: function (modelValue, testValue) {
+                    var offset = modelValue.length - testValue.length;
+                    return modelValue.substring(offset) === testValue;
+                },
+                /**
+                 * Typeof
+                 * @method $typeof
+                 * @param modelValue
+                 * @param testValue
+                 * @returns {boolean}
+                 */
+                $typeof: function (modelValue, testValue) {
+                    return typeof modelValue === testValue;
+                },
+                /**
+                 * instanceof
+                 * @method $instanceof
+                 * @param modelValue
+                 * @param testValue
+                 * @returns {boolean}
+                 */
+                $instanceof: function (modelValue, testValue) {
+                    return modelValue instanceof testValue;
+                },
+                /**
+                 * Converts the modelValue to lower case before making the comparison
+                 * @method $toLowerCase
+                 * @param modelValue
+                 * @param testValue
+                 * @returns {boolean}
+                 */
+                $toLowerCase: function (modelValue, testValue) {
+                    return modelValue.toLowerCase() === testValue;
+                },
+                /**
+                 * Converts the modelValue to upper case before making the comparison
+                 * @method $toUpperCase
+                 * @param modelValue
+                 * @param testValue
+                 * @returns {boolean}
+                 */
+                $toUpperCase: function (modelValue, testValue) {
+                    return modelValue.toUpperCase() === testValue;
+                },
+                /**
+                 * Matches the modelValue against an array of values
+                 * @method $inArray
+                 * @param modelValue
+                 * @param testArray
+                 * @returns {boolean}
+                 */
+                $inArray: function (modelValue, testArray) {
+                    return testArray.indexOf(modelValue) !== -1;
+                },
+                /**
+                 * Matches the model property names against a single or an array of value(s)
+                 * @method $has
+                 * @param modelValue
+                 * @param testValue
+                 * @returns {boolean}
+                 */
+                $has: function (modelValue, testValue) {
+                    if (testValue instanceof Array) {
+                        return testValue.every(function (testItemValue) {
+                            return (testItemValue in modelValue);
+                        });
+                    } else {
+                        return testValue in modelValue;
+                    }
+                },
+                /**
+                 * Matches a query against the model children properties. i.e. return querify.one(model, query)
+                 * @method $queryOne
+                 * @param modelValue
+                 * @param query
+                 * @returns {boolean}
+                 */
+                $queryOne: function (modelValue, query) {
+                    return executeQuery.call(this, modelValue, query, false);
+                },
+                /**
+                 * Matches a query against an array of models. i.e. return querify.many(modelArray, query)
+                 * @method $queryMany
+                 * @param modelArray
+                 * @param query
+                 * @returns {boolean}
+                 */
+                $queryMany: function (modelArray, query) {
+                    var scope = this;
+                    // iterates the promises until false or error
+                    return promiseExtras.every(modelArray, function (model, modelIndex, fulfil) {
+                        fulfil(executeQuery.call(scope, model, query, false));
+                    });
+                },
+                /**
+                 * Matches a query against an array of models. i.e. return querify.some(modelArray, query)
+                 * @method $querySome
+                 * @param modelArray
+                 * @param query
+                 * @returns {boolean}
+                 */
+                $querySome: function (modelArray, query) {
+                    var scope = this;
+                    // iterates the promises when finds first match, no matches or errors
+                    return promiseExtras.some(modelArray, function (model, modelIndex, fulfil) {
+                        fulfil(executeQuery.call(scope, model, query, false));
+                    });
                 }
-			}
-		};
+            }
+        };
 
-		function executeAnd(model, operations, negateCompare, modelValue) {
+        function executeAnd(model, operations, negateCompare, modelValue) {
 
-			// log current operation
-			logQuery(this.queryTrail, this.queryLevel, '$and');
+            // log current operation
+            logQuery(this.queryTrail, this.queryLevel, '$and');
 
-			// execute the $and operation
-			return executeQuery.call(this, model, operations, negateCompare, modelValue);
-		}
+            // execute the $and operation
+            return executeQuery.call(this, model, operations, negateCompare, modelValue);
+        }
 
-		function executeOr(model, operations, negateCompare, modelValue) {
+        function executeOr(model, operations, negateCompare, modelValue) {
 
-			// log current operation
-			logQuery(this.queryTrail, this.queryLevel, '$or');
+            // log current operation
+            logQuery(this.queryTrail, this.queryLevel, '$or');
 
-			// execute the $and operation
-			return executeQuery.call(this, model, operations, negateCompare, modelValue);
-		}
+            // execute the $and operation
+            return executeQuery.call(this, model, operations, negateCompare, modelValue);
+        }
 
-		function executeNot(model, operations, modelValue) {
+        function executeNot(model, operations, modelValue) {
 
-			// store the $not stack index so we can set it's result after
-			var stackIndex = this.queryTrail.length;
+            // store the $not stack index so we can set it's result after
+            var stackIndex = this.queryTrail.length;
 
-			// log current operation
-			logQuery(this.queryTrail, this.queryLevel, '$not');
+            // log current operation
+            logQuery(this.queryTrail, this.queryLevel, '$not');
 
-			// execute the $not operation
-			var result = executeQuery.call(this, model, operations, true, modelValue);
+            // execute the $not operation
+            var result = executeQuery.call(this, model, operations, true, modelValue);
 
-			// save the result to the queryTrail
-			this.queryTrail[stackIndex].result = result;
+            // save the result to the queryTrail
+            this.queryTrail[stackIndex].result = result;
 
-			// return the result
-			return result;
-		}
+            // return the result
+            return result;
+        }
 
-		function executeCompare(operationkey, operations, negateCompare, modelValue, reject) {
+        function executeCompare(operationkey, operations, negateCompare, modelValue, reject) {
 
-			// log current operation
-			logQuery(this.queryTrail, this.queryLevel, operationkey);
+            // log current operation
+            logQuery(this.queryTrail, this.queryLevel, operationkey);
 
-			// check if we have a compare method
-			var compareMethod = this.config.compareMethods[operationkey];
-			if (compareMethod === undefined) {
-				reject( new ReferenceError("No compare method was found for: " + operationkey) );
-				return false;
-			}
+            // check if we have a compare method
+            var compareMethod = this.config.compareMethods[operationkey];
+            if (compareMethod === undefined) {
+                reject(new ReferenceError("No compare method was found for: " + operationkey));
+                return false;
+            }
 
-			// check if we have anything to process
-			var compareValue = operations[operationkey];
-			if (compareValue === undefined) {
-				reject( new Error("No query test value was found for: " + compareValue) );
-				return false;
-			}
+            // check if we have anything to process
+            var compareValue = operations[operationkey];
 
-			// execute the compareMethod
-			var result = compareMethod.call(this, modelValue, compareValue);
+            // execute the compareMethod
+            var result = compareMethod.call(this, modelValue, compareValue);
 
-			// negate the result if need be
-			if (negateCompare) {
-				result = !result;
-			}
+            // negate the result if need be
+            if (negateCompare) {
+                result = !result;
+            }
 
-			// set the result for the current operation to the queryTrail
-			this.queryTrail[this.queryTrail.length - 1].result = result;
+            // set the result for the current operation to the queryTrail
+            this.queryTrail[this.queryTrail.length - 1].result = result;
 
-			// return the result
-			return result;
-		}
+            // return the result
+            return result;
+        }
 
-		function executeValueOperations(model, operationkey, operations, negateCompare) {
+        function executeValueOperations(model, operationkey, operations, negateCompare) {
 
-			// log current operation
-			logQuery(this.queryTrail, this.queryLevel, operationkey);
+            // log current operation
+            logQuery(this.queryTrail, this.queryLevel, operationkey);
 
-			var modelValue = model[operationkey];
-			if (modelValue === undefined) {
-				throw new Error("No model value was found for: " + modelValue)
-			}
+            var modelValue = model[operationkey];
 
-			var descendantOps = operations[operationkey];
-			if (descendantOps === undefined) {
-				throw new Error("No operation property was found for: " + operationkey)
-			}
+            var descendantOps = operations[operationkey];
+            if (descendantOps === undefined) {
+                throw new Error("No operation property was found for: " + operationkey)
+            }
 
-			// execute the modelValue operations
-			return executeQuery.call(this, model, descendantOps, negateCompare, modelValue);
+            // execute the modelValue operations
+            return executeQuery.call(this, model, descendantOps, negateCompare, modelValue);
 
-		}
+        }
 
-		function executeQuery(model, operations, negateCompare, modelValue) {
-			var context = this,
-				operationKeys,
-				hasOrOperation;
+        function executeQuery(model, operations, negateCompare, modelValue) {
+            var context = this,
+                operationKeys,
+                hasOrOperation;
 
-			if (negateCompare === undefined) {
-				negateCompare = false;
-			}
+            if (negateCompare === undefined) {
+                negateCompare = false;
+            }
 
-			// increment the query level
-			context.queryLevel++;
+            // increment the query level
+            context.queryLevel++;
 
-			// get the operation keys
-			operationKeys = Object.keys(operations);
+            // get the operation keys
+            operationKeys = Object.keys(operations);
 
-			// pop the $or if exists
-			hasOrOperation = '$or' in operations;
-			if (hasOrOperation === true) {
-				operationKeys = operationKeys.filter( function(element) { return element !== '$or'; } )
-			}
+            // pop the $or if exists
+            hasOrOperation = '$or' in operations;
+            if (hasOrOperation === true) {
+                operationKeys = operationKeys.filter(function (element) {
+                    return element !== '$or';
+                })
+            }
 
-			// loop the operation keys
-			return promiseExtras.every(operationKeys, function(operationkey, operationIndex, fulfil, reject) {
-				var result = false;
+            // loop the operation keys
+            return promiseExtras.every(operationKeys, function (operationkey, operationIndex, fulfil, reject) {
+                var result = false;
 
-				if (operations.hasOwnProperty(operationkey)) {
+                if (operations.hasOwnProperty(operationkey)) {
 
-					if (operationkey[0] === '$') {
+                    if (operationkey[0] === '$') {
 
-						if (modelValue === undefined) {
-							modelValue = model;
-						}
+                        if (modelValue === undefined) {
+                            modelValue = model;
+                        }
 
-						if (operationkey === '$not') {
-							result = executeNot.call(context, model, operations.$not, modelValue);
-						} else if (operationkey === '$and') {
-							result = executeAnd.call(context, model, operations.$and, negateCompare, modelValue);
-						} else {
-							result = executeCompare.call(context,
-								operationkey,
-								operations,
-								negateCompare,
-								modelValue,
-								reject
-							);
-						}
+                        if (operationkey === '$not') {
+                            result = executeNot.call(context, model, operations.$not, modelValue);
+                        } else if (operationkey === '$and') {
+                            result = executeAnd.call(context, model, operations.$and, negateCompare, modelValue);
+                        } else {
+                            result = executeCompare.call(context,
+                                operationkey,
+                                operations,
+                                negateCompare,
+                                modelValue,
+                                reject
+                            );
+                        }
 
-					} else {
-						result = executeValueOperations.call(context, model, operationkey, operations, negateCompare);
-					}
+                    } else {
+                        result = executeValueOperations.call(context, model, operationkey, operations, negateCompare);
+                    }
 
-				}
+                }
 
-				fulfil( result );
+                fulfil(result);
 
-			}).then(function (result) {
+            }).then(function (result) {
 
                 // a condition where promiseExtras.every passes over an empty array and returns true
                 if (operationKeys.length === 0) {
@@ -402,292 +425,445 @@
 
                 return result;
             })
-            .then(function(result) {
+                .then(function (result) {
 
-				// decrement the query level
-				context.queryLevel--;
+                    // decrement the query level
+                    context.queryLevel--;
 
-				return result;
-			});
+                    return result;
+                });
 
-		}
+        }
 
-		/**
-		 * Class for creating independent instances.
-		 *
-		 * @class QueryRunner
-		 *
-		 * @constructor
-		 * @param {Object} config
-		 * @param {CompareMethods} config.compareMethods
-		 * @param {Object} sharedContext
-		 *      passed to custom compare methods
-		 *
-		 */
-		function QueryRunner(config, sharedContext) {
+        /**
+         * Class for creating independent instances.
+         *
+         * @class QueryRunner
+         *
+         * @constructor
+         * @param {Object} config
+         * @param {CompareMethods} config.compareMethods
+         * @param {Object} sharedContext
+         *      passed to custom compare methods
+         *
+         */
+        function QueryRunner(config, sharedContext) {
 
-			// fallback to default config if not supplied
-			this.config = config || defaultConfig;
+            // fallback to default config if not supplied
+            this.config = config || defaultConfig;
 
-			// init the queryTrail object
-			this.queryTrail = [];
+            // init the queryTrail object
+            this.queryTrail = [];
 
-			// fallback to an empty object if not supplied
-			this.sharedContext = sharedContext || {};
+            // fallback to an empty object if not supplied
+            this.sharedContext = sharedContext || {};
 
-		}
+        }
 
-		QueryRunner.prototype = {
+        QueryRunner.prototype = {
 
-			/**
-			 * Class for creating a independent instance
-			 *
-			 * @property QueryRunner
-			 * @type QueryRunner
-			 *
-			 * @example
-			 *      // returns
-			 *      var runner = new QueryRunner()
-			 *
-			 */
-			QueryRunner: QueryRunner,
-			/**
-			 * Contains global config.
-			 *
-			 * @property config
-			 * @type Object
-			 * @param {CompareMethods} config.compareMethods
-			 */
-			config: defaultConfig,
+            /**
+             * Class for creating an independent instance
+             *
+             * @property QueryRunner
+             * @type QueryRunner
+             *
+             * @example
+             *      // returns
+             *      var runner = new QueryRunner()
+             *
+             */
+            QueryRunner: QueryRunner,
+            /**
+             * Contains global config.
+             *
+             * @property config
+             * @type Object
+             * @param {CompareMethods} config.compareMethods
+             */
+            config: defaultConfig,
 
-			/**
-			 *
-			 * Stores the query trail from the last call to one, many or filter
-			 *
-			 * @property queryTrail
-			 * @type Array
-			 *
-			 */
-			queryTrail: [],
-			/**
-			 * Tests one model object against a query object
-			 *
-			 * @method one
-			 * @async
-			 *
-			 * @param {Object} model The data object
-			 * @param {Object} query The query object
-			 *
-			 * @return {Promise} who's result is set to a {Boolean}.
-			 *
-			 * @example
-			 *      // the data to query
-			 *      var model = {
-			 *      	name: 'cyborg',
-			 *      	age: 123
-			 *      };
-			 *
-			 *      // the query
-			 *      var query = {
-			 *      	name: {
-			 *      		$right: 'g',
-			 *      		$and: {
-			 *      			$left: 'cy'
-			 *      		}
-			 *      	},
-			 *      	$and: {
-			 *      		age: {
-			 *      			$typeof: 'number',
-			 *      			$and: {
-			 *      				$equals: 123
-			 *      			}
-			 *      		}
-			 *      	}
-			 *      };
-			 *
-			 *      // run the query
-			 *      querify.one(model, query)
-			 *      		.then(function (result) {
-			 *      			// the result
-			 *      		}).catch (function (error) {
-			 *      			// catch any errors
-			 *      		})
-			 *      		.then(function () {
-			 *      			// finally
-			 *      		});
-			 *
-			 */
-			one: function(model, query) {
-				var context = this;
+            /**
+             * Stores the query trail from the last call to one, many or filter
+             *
+             * @property queryTrail
+             * @type Array
+             *
+             */
+            queryTrail: [],
+            /**
+             * Tests if any of the models from an array match against a query object
+             *
+             * @method some
+             * @param modelArray
+             * @param query
+             * @return {Promise} who's result is set to a {Boolean}.
+             *
+             * @example
+             *      // the data to query
+             *      var model = [{
+             *          name: 'cyborg',
+             *          age: 123
+             *      }, {
+             *          name: 'borg',
+             *          age: 223
+             *      }];
+             *
+             *      // the query
+             *      var query = {
+             *          age: {
+             *              $equals: 223
+             *          }
+             *      };
+             *
+             *      // run the query
+             *      querify.some(model, query)
+             *              .then(function (result) {
+             *                  // the result, true or false
+             *              }).catch (function (error) {
+             *                  // catch any errors
+             *              })
+             *              .then(function () {
+             *                  // finally
+             *              });
+             *
+             */
+            some: function (modelArray, query) {
+                if (modelArray === undefined) {
+                    return Promise.reject(new ReferenceError("Unspecified model array."));
+                }
 
-				// setup the query logging stack
-				context.queryTrail = [];
-				context.queryLevel = 0;
+                if (query === undefined) {
+                    return Promise.reject(new ReferenceError("Unspecified query."));
+                }
 
-				return executeQuery.call(context, model, query, false);
+                var context = this;
 
-			},
-			/**
-			 * Tests an array of model objects against a query object
-			 *
-			 * @method many
-			 * @async
-			 *
-			 * @param {Array} modelArray An array of data objects
-			 * @param {Object} query The query object
-			 *
-			 * @return {Promise} who's result is set to a {Boolean}.
-			 *
-			 * @example
-			 *      // the data to query
-			 *      var model = [{
-			 *      	name: 'cyborg',
-			 *      	age: 123
-			 *      }, {
-			 *      	name: 'borg',
-			 *      	age: 223
-			 *      }];
-			 *
-			 *      // the query
-			 *      var query = {
-			 *      	name: {
-			 *      		$right: 'g'
-			 *      	},
-			 *      	age: {
-			 *      		$typeof: 'number'
-			 *      	}
-			 *      };
-			 *
-			 *      // run the query
-			 *      querify.many(model, query)
-			 *      		.then(function (result) {
-			 *      			// the result, true or false
-			 *      		}).catch (function (error) {
-			 *      			// catch any errors
-			 *      		})
-			 *      		.then(function () {
-			 *      			// finally
-			 *      		});
-			 *
-			 */
-			many: function (modelArray, query) {
-				if (modelArray === undefined) {
-					return Promise.reject( new ReferenceError("Unspecified model array.") );
-				}
+                // setup the query logging stack
+                context.queryTrail = [];
+                context.queryLevel = 0;
 
-				if (query === undefined) {
-					return Promise.reject( new ReferenceError("Unspecified query.") );
-				}
+                // iterates the promises until false or error
+                return promiseExtras.some(modelArray, function (model, modelIndex, fulfil) {
+                    fulfil(executeQuery.call(context, model, query, false));
+                });
 
-				var context = this;
+            },
+            /**
+             * Tests one model object against a query object
+             *
+             * @method one
+             * @async
+             *
+             * @param {Object} model The data object
+             * @param {Object} query The query object
+             *
+             * @return {Promise} who's result is set to a {Boolean}.
+             *
+             * @example
+             *      // the data to query
+             *      var model = {
+             *          name: 'cyborg',
+             *          age: 123
+             *      };
+             *
+             *      // the query
+             *      var query = {
+             *          name: {
+             *              $right: 'g',
+             *              $and: {
+             *                  $left: 'cy'
+             *              }
+             *          },
+             *          $and: {
+             *              age: {
+             *                  $typeof: 'number',
+             *                  $and: {
+             *                      $equals: 123
+             *                  }
+             *              }
+             *          }
+             *      };
+             *
+             *      // run the query
+             *      querify.one(model, query)
+             *              .then(function (result) {
+             *                  // the result
+             *              }).catch (function (error) {
+             *                  // catch any errors
+             *              })
+             *              .then(function () {
+             *                  // finally
+             *              });
+             *
+             */
+            one: function (model, query) {
+                if (model === undefined) {
+                    return Promise.reject(new ReferenceError("Unspecified model."));
+                }
 
-				// setup the query logging stack
-				context.queryTrail = [];
-				context.queryLevel = 0;
+                if (query === undefined) {
+                    return Promise.reject(new ReferenceError("Unspecified query."));
+                }
 
-				// iterates the promises until false or error
-				return promiseExtras.every( modelArray, function(model, modelIndex, fulfil) {
-					fulfil( executeQuery.call(context, model, query, false) );
-				});
+                var context = this;
 
-			},
-			/**
-			 * Filters an array of model objects against a query object
-			 *
-			 * @method filter
-			 * @async
-			 *
-			 * @param {Array} modelArray An array of data objects
-			 * @param {Object} query The query object
-			 *
-			 * @return {Promise} who's result is set to an {Array} of filtered objects.
-			 *
-			 * @example
-			 *      // the data to query
-			 *      var model = [{
-			 *      	name: 'cyborg',
-			 *      	age: 123
-			 *      }, {
-			 *      	name: 'borg',
-			 *      	age: 223
-			 *      }];
-			 *
-			 *      // the query
-			 *      var query = {
-			 *      	name: {
-			 *      		$equals: 'cyborg'
-			 *      	}
-			 *      };
-			 *
-			 *      // run the query
-			 *      querify.filter(model, query)
-			 *      		.then(function (results) {
-			 *      			// the results, a filtered array
-			 *      		}).catch (function (error) {
-			 *      			// catch any errors
-			 *      		})
-			 *      		.then(function () {
-			 *      			// finally
-			 *      		});
-			 *
-			 */
-			filter: function (modelArray, query) {
-				if (modelArray === undefined) {
-					return Promise.reject( new ReferenceError("Unspecified model array.") );
-				}
+                // setup the query logging stack
+                context.queryTrail = [];
+                context.queryLevel = 0;
 
-				if (query === undefined) {
-					return Promise.reject( new ReferenceError("Unspecified query.") );
-				}
+                return executeQuery.call(context, model, query, false);
 
-				var context = this;
+            },
+            /**
+             * Tests if an array of model objects match against a query object
+             *
+             * @method many
+             * @async
+             *
+             * @param {Array} modelArray An array of data objects
+             * @param {Object} query The query object
+             *
+             * @return {Promise} who's result is set to a {Boolean}.
+             *
+             * @example
+             *      // the data to query
+             *      var model = [{
+             *          name: 'cyborg',
+             *          age: 123
+             *      }, {
+             *          name: 'borg',
+             *          age: 223
+             *      }];
+             *
+             *      // the query
+             *      var query = {
+             *              name: {
+             *              $right: 'g'
+             *          },
+             *          age: {
+             *              $typeof: 'number'
+             *          }
+             *      };
+             *
+             *      // run the query
+             *      querify.many(model, query)
+             *              .then(function (result) {
+             *                  // the result, true or false
+             *              })
+             *              .catch (function (error) {
+             *                  // catch any errors
+             *              })
+             *              .then(function () {
+             *                  // finally
+             *              });
+             *
+             */
+            many: function (modelArray, query) {
+                if (modelArray === undefined) {
+                    return Promise.reject(new ReferenceError("Unspecified model array."));
+                }
 
-				// setup the query logging stack
-				this.queryTrail = [];
-				this.queryLevel = 0;
+                if (query === undefined) {
+                    return Promise.reject(new ReferenceError("Unspecified query."));
+                }
 
-				// create a sync chain of promises
-				var syncTasks = Promise.resolve([]);
+                var context = this;
 
-				modelArray.forEach(function (model, modelIndex) {
+                // setup the query logging stack
+                context.queryTrail = [];
+                context.queryLevel = 0;
 
-					syncTasks = syncTasks.then(function (filteredList) {
+                // iterates the promises until false or error
+                return promiseExtras.every(modelArray, function (model, modelIndex, fulfil) {
+                    fulfil(executeQuery.call(context, model, query, false));
+                });
 
-						context.queryLevel = 0;
+            },
+            /**
+             * Filters an array of model objects against a query object
+             *
+             * @method filter
+             * @async
+             *
+             * @param {Array} modelArray An array of data objects
+             * @param {Object} query The query object
+             *
+             * @return {Promise} who's result is set to an {Array} of filtered objects.
+             *
+             * @example
+             *      // the data to query
+             *      var model = [{
+             *          name: 'cyborg',
+             *          age: 123
+             *      }, {
+             *          name: 'borg',
+             *          age: 223
+             *      }];
+             *
+             *      // the query
+             *      var query = {
+             *          name: {
+             *              $equals: 'cyborg'
+             *          }
+             *      };
+             *
+             *      // run the query
+             *      querify.filter(model, query)
+             *              .then(function (results) {
+             *                  // the results, a filtered array
+             *              }).catch (function (error) {
+             *                  // catch any errors
+             *              })
+             *              .then(function () {
+             *                  // finally
+             *              });
+             *
+             */
+            filter: function (modelArray, query) {
+                if (modelArray === undefined) {
+                    return Promise.reject(new ReferenceError("Unspecified model array."));
+                }
 
-						// log current operation
-						logQuery(context.queryTrail, modelIndex, "$$arrayItem");
+                if (query === undefined) {
+                    return Promise.reject(new ReferenceError("Unspecified query."));
+                }
 
-						return executeQuery.call(context, model, query, false)
-							.then(function (result) {
-								if (result === true) {
-									filteredList.push(model);
-								}
-								return filteredList;
-							});
+                var context = this;
+
+                // setup the query logging stack
+                this.queryTrail = [];
+                this.queryLevel = 0;
+
+                // create a chain of thenables
+                var chainedThen = Promise.resolve([]);
+
+                modelArray.forEach(function (model, modelIndex) {
+
+                    chainedThen = chainedThen.then(function then(filteredList) {
+
+                        context.queryLevel = 0;
+
+                        // log current operation
+                        logQuery(context.queryTrail, modelIndex, "$$arrayItem");
+
+                        return executeQuery.call(context, model, query, false)
+                            .then(function (result) {
+                                // determine if passed
+                                if (result === true) {
+                                    filteredList.push(model);
+                                }
+                                // pass on the results
+                                return filteredList;
+                            });
+
+                    });
+
+                });
+
+                return chainedThen;
+            },
+            /**
+             * Extracts items from an object dictionary using a query object
+             *
+             * @method extract
+             * @async
+             *
+             * @param {Object} modelDictionary An object dictionary of model objects
+             * @param {Object} query The query object
+             *
+             * @return {Promise} who's result is set to an {Object} dictionary of model objects.
+             *
+             * @example
+             *      // the data to query
+             *      var modelDictionary = {
+             *          "item1": {
+             *              name: 'cyborg',
+             *              age: 123
+             *          },
+             *          "item2": {
+             *              name: 'borg',
+             *              age: 223
+             *          }
+             *      };
+             *
+             *      // the query
+             *      var query = {
+             *          name: {
+             *              $equals: 'cyborg'
+             *          }
+             *      };
+             *
+             *      // run the query
+             *      querify.extract(modelDictionary, query)
+             *              .then(function (results) {
+             *                  // the results, an extracted model dictionary
+             *              }).catch (function (error) {
+             *                  // catch any errors
+             *              })
+             *              .then(function () {
+             *                  // finally
+             *              });
+             *
+             */
+            extract: function (modelDictionary, query) {
+                if (modelDictionary === undefined) {
+                    return Promise.reject(new ReferenceError("Unspecified model dictionary."));
+                }
+
+                if (query === undefined) {
+                    return Promise.reject(new ReferenceError("Unspecified query."));
+                }
+
+                var context = this;
+
+                // setup the query logging stack
+                this.queryTrail = [];
+                this.queryLevel = 0;
+
+                // setup a chain of thenable methods
+                var chainedThen = Promise.resolve({});
+
+                var keys = Object.keys(modelDictionary);
+                keys.forEach(function (modelKey, modelIndex) {
+
+                    chainedThen = chainedThen.then(function (filteredDictionary) {
+                        context.queryLevel = 0;
+
+                        // log current operation
+                        logQuery(context.queryTrail, modelIndex, "$$arrayItem");
+
+                        var model = modelDictionary[modelKey];
+                        return executeQuery.call(context, model, query, false)
+                            .then(function (result) {
+                                // determine if passed
+                                if (result === true) {
+                                    filteredDictionary[modelKey] = model;
+                                }
+                                // pass on the results
+                                return filteredDictionary;
+                            });
+                    });
+
+                });
+
+                return chainedThen
+            }
+        };
+
+        // return a new instance
+        return new QueryRunner();
+
+    }($Promise, $promiseExtras));
 
 
-					});
-
-				});
-
-				return syncTasks;
-			}
-		};
-
-		// return a new instance
-		return new QueryRunner();
-
-	}($Promise, $promiseExtras));
-
-
-	/* export the library */
-	if (typeof window !== "undefined") {
-		/* browser */
-		window.querify = library;
-	} else if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-		/* node */
-		module.exports = library;
-	}
+    /* export the library */
+    if (typeof window !== "undefined") {
+        /* browser */
+        window.querify = library;
+    } else if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
+        /* node */
+        module.exports = library;
+    }
 
 }());

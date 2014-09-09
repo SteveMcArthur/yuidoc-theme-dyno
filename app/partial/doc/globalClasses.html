@@ -1,10 +1,10 @@
 <div class="classes"
-         ng-repeat="(key, class) in classes | filter:{'module':module.name}:true | orderBy:['name']">
+         ng-repeat="(key, class) in globalClasses | orderBy:['name']">
 
     <div class="container-fluid">
 
         <div class="heading">
-            <h2 id="{{module.name | idEncode}}_{{class.name | idEncode}}" class="page-header">
+            <h2 id="{{class.name | idEncode}}" class="page-header">
                 <i class="fa fa-cube" ng-style="{color: getClassItemTypeColour('class')}"></i><span
                     ng-bind="class.name"></span>
             </h2>
@@ -36,7 +36,8 @@
                 </div>
             </div>
 
-            <ng-include src="'app/partial/doc/classItems.html'"></ng-include>
+            <ng-include src="'app/partial/doc/classItems.html'"
+                        ng-init="module = {}"></ng-include>
 
         </div>
 

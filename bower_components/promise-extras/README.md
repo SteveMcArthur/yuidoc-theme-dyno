@@ -2,7 +2,6 @@
 
 [![Build Status](https://secure.travis-ci.org/pflannery/promise-extras.png?branch=master)](http://travis-ci.org/pflannery/promise-extras "Check this project's build status on TravisCI")
 [![NPM version](https://badge.fury.io/js/promise-extras.png)](https://npmjs.org/package/promise-extras "View this project on NPM")
-[![Dependency Status](https://gemnasium.com/pflannery/promise-extras.png)](https://gemnasium.com/pflannery/promise-extras)
 [![Gittip donate button](http://img.shields.io/gittip/pflannery.png)](https://www.gittip.com/pflannery/ "Donate weekly to this project using Gittip")
 [![Analytics](https://ga-beacon.appspot.com/UA-47157500-1/promise-extras/readme)](https://github.com/pflannery/promise-extras)
 

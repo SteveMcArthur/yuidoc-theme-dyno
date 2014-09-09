@@ -9,7 +9,7 @@ A No-SQL object query library made for javascript
 
 ## Documentation
 
-[Library API](http://pflannery.github.io/querifyjs/api/modules/QuerifyJs.html)
+[Library API](http://pflannery.github.io/querifyjs/)
 
 ## Examples
 
@@ -71,6 +71,14 @@ querify.one(model, query)
     });
 ```
 
+####Api
+|name|description
+|----|-----------
+|one   	        |Tests one model object against a query object
+|some         	|Tests if any of the models from an array matches against a query object
+|many        	|Tests if an array of model objects matches against a query object
+|filter       	|Filters an array of model objects against a query object
+
 ####Operations
 
 |name|description
@@ -93,7 +101,9 @@ querify.one(model, query)
 |$toUpperCase	|toUpperCase
 |$inArray	    |matches against an array of values
 |$has		    |matches model property names against a single or an array of value(s)
-|$queryOne      |matches a query against the models children properties. i.e. much like (return querify.one(model, query))
+|$queryOne      |matches a query against the model children properties. i.e. return querify.one(model, query)
+|$queryMany     |matches a query against an array of models. i.e. return querify.many(modelArray, query)
+|$querySome     |matches a query against an array of models. i.e. return querify.some(modelArray, query)
 
 All compare methods are\can-be registered in querify.config.compareMethods array
 
@@ -119,8 +129,3 @@ $userNameExists: function(modelValue, testValue) {
 
 ## Contributing
 Feel free to submit ideas and issues.
-
-## License
-Licensed under the incredibly [permissive](http://en.wikipedia.org/wiki/Permissive_free_software_licence) [MIT License](http://creativecommons.org/licenses/MIT/)
-<br/>Copyright &copy; 2014+ Stringz Solutions Ltd
-<br/>Copyright &copy; 2014+ [Peter Flannery](http://github.com/pflannery)

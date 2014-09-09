@@ -1,0 +1,8 @@
+<li class="tn"
+    ng-repeat="classItem in classItems | filter:{'class':className}:true | filter:{'name':moduleFilterText} | orderBy:['itemtype', 'name']">
+    <a class="ti ti-default"
+       ng-href="#{{module.name | idEncode}}_{{className | idEncode}}_{{classItem.name | idEncode}}" scroll-to>
+        <i class="fa fa-cube" ng-style="{'color': getClassItemTypeColour(classItem.itemtype)}"></i><span
+            ng-bind="classItem.name"></span>
+    </a>
+</li>
