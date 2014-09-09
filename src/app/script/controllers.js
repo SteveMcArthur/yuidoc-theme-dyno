@@ -41,6 +41,9 @@
                     $scope.classItems = data.classitems;
                 });
 
+
+	        $scope.getGlobalClasses = apiService.getGlobalClasses;
+
         }
     );
 

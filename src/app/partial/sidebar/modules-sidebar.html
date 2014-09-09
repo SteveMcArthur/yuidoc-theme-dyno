@@ -1,15 +1,25 @@
 <div class="nav sidebarNav">
     <div id="apiTree" class="tree">
+
         <ul class="tl nav" role="menu">
+            <li ng-repeat="class in getGlobalClasses()">
+                {{class.name}}
+            </li>
+        </ul>
+
+
+        <ul class="tl nav" role="menu" ng-if="modules!==undefined">
             <li class="tn" ng-repeat="module in modules">
                 <a class="ti ti-default" ng-href="#{{module.name | idEncode}}" scroll-to>
-                    <i class="fa fa-cube" ng-style="{'color': getClassItemTypeColour('module')}"/><span
-                        ng-bind="module.name"/>
+                    <i class="fa fa-cube" ng-style="{'color': getClassItemTypeColour('module')}"></i><span
+                        ng-bind="module.name"></span>
                 </a>
                 <ul id="{{module.name}}_properties" class="tl" role="menu"
                     ng-include="'app/partial/sidebar/classes-sidebar.html'">
                 </ul>
             </li>
         </ul>
+
+
     </div>
 </div>
