@@ -6,7 +6,6 @@
   z-index: 1000;
   display: block;
   padding: 20px;
-  padding-right: 40px;
   overflow-x: hidden;
   overflow-y: auto;
   border-right: 1px solid;
@@ -23,10 +22,6 @@
   }
 
   .filterInput {
-    width: 100%;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
     border: 1px solid #DFDFDF;
     padding-left: 2px;
     color: #444;

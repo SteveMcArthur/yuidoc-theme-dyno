@@ -177,7 +177,6 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "yuidoc",
             "namespace": "",
             "file": "lib/docparser.js",
             "line": 727,

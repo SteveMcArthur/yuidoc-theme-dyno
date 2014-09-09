@@ -1,7 +1,7 @@
 .tree {
 
   /* top level */
-  .tree-list:first-child, .tl:first-child {
+  > .tree-list, > .tl {
     position: relative;
 
     > .tree-node, > .tn {
@@ -35,6 +35,9 @@
   height: 2.4em;
   vertical-align: top;
   display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   &:before {
 
