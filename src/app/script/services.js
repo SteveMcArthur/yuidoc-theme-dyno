@@ -16,22 +16,22 @@
                         }
                     );
                 },
-                getGlobalClasses: function () {
+	            getGlobalClasses: function () {
 
-                    dataRepository.read(yuidocDataPath)
-                        .then(function (yuidocData) {
+		            return dataRepository.read(yuidocDataPath)
+			            .then(function (yuidocData) {
 
-                            var query = {
-                                module: {
-                                    $equals: undefined
-                                }
-                            };
+				            var query = {
+					            $not: {
+						            $has: 'module'
+					            }
+				            };
 
-                            return querify.extract(yuidocData.classes, query);
-                        }
-                    );
+				            return querify.extract(yuidocData.classes, query);
+			            });
 
-                }
+	            }
+
             };
         });
 

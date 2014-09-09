@@ -9,7 +9,10 @@
      */
     module.filter('idEncode', function () {
         return function (inValue) {
-            return inValue.replace(/[$]/g, "dollar_");
+	        if (inValue === undefined || inValue.length === 0)
+	            return inValue;
+	        else
+                return inValue.replace(/[$]/g, "dollar_");
         };
     });
 

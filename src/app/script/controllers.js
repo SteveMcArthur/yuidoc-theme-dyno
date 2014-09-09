@@ -3,8 +3,18 @@
 
     var controllers = angular.module("app.controllers", ["app.services", "ngSanitize"]);
 
+
+	marked.setOptions({
+		highlight: function (code) {
+			return hljs.highlightAuto(code).value;
+		}
+	});
+
+	controllers.constant("marked", window.marked);
+	controllers.constant("hljs", window.hljs);
+
     controllers.controller("appController",
-        function appController($scope, apiService) {
+        function appController($scope, apiService, marked, hljs) {
 
             // adds loading state object
             $scope.getClassItemTypeColour = function (classItemType) {
@@ -24,13 +34,7 @@
                 }
             };
 
-            marked.setOptions({
-                highlight: function (code) {
-                    return hljs.highlightAuto(code).value;
-                }
-            });
-
-            $scope.marked = window.marked;
+            $scope.marked = marked;
 
             // fetch the data
             apiService.get()
@@ -39,10 +43,15 @@
                     $scope.modules = data.modules;
                     $scope.classes = data.classes;
                     $scope.classItems = data.classitems;
-                });
+                })
+	            .then(apiService.getGlobalClasses)
+	            .then(function(objDictResult){
+		            $scope.globalClasses = objDictResult;
+	            })
+	            .catch(function(error) {
+		            console.error(error);
+	            });
 
-
-	        $scope.getGlobalClasses = apiService.getGlobalClasses;
 
         }
     );

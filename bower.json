@@ -17,6 +17,6 @@
     "angular-route": "~1.2.23",
     "marked": "~0.3.2",
     "angular-sanitize": "~1.2.23",
-    "querifyjs": "~0.8.0"
+    "querifyjs": "^0.8.0"
   }
 }
