@@ -3,16 +3,6 @@
 
     var controllers = angular.module("app.controllers", ["app.services", "ngSanitize"]);
 
-
-	marked.setOptions({
-		highlight: function (code) {
-			return hljs.highlightAuto(code).value;
-		}
-	});
-
-	controllers.constant("marked", window.marked);
-	controllers.constant("hljs", window.hljs);
-
     controllers.controller("appController",
         function appController($scope, apiService, marked, hljs) {
 
@@ -51,7 +41,6 @@
 	            .catch(function(error) {
 		            console.error(error);
 	            });
-
 
         }
     );

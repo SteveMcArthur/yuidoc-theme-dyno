@@ -3,8 +3,6 @@
     "use strict";
 
     var services = angular.module("app.services", ["ngResource", "app.repositories"]);
-    services.constant('yuidocDataPath', 'dist/doc/data.json');
-    services.constant('querify', querify);
 
     services.service("apiService",
         function (dataRepository, yuidocDataPath, querify) {
@@ -31,7 +29,6 @@
 			            });
 
 	            }
-
             };
         });
 
