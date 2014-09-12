@@ -26,5 +26,21 @@
     padding-left: 2px;
     color: #444;
   }
+}
 
+.apiSidebarToggle {
+  display: block;
+  float: left;
+}
+
+@media (max-width: 1200px) {
+  .apiSidebar {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .apiSidebar {
+    display: block !important;
+  }
 }
