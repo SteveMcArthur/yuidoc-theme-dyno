@@ -2,9 +2,9 @@
     <div class="syntax">
         <strong class="text-muted">Syntax</strong>
 
-        <div class="bs-callout bs-callout-primary markdown-body">
-            {{classItem.name}}(<span ng-repeat="param in classItem.params">{{param.name}}<span
-                ng-if="$index<classItem.params.length-1">,</span></span>)
+        <div class="bs-callout markdown-body">
+            <code><span ng-bind="classItem.name"></span>(<span ng-repeat="param in classItem.params" ng-bind="param.name"><span
+                ng-if="$index<classItem.params.length-1">, </span></span>);</code>
         </div>
     </div>
 
@@ -15,8 +15,7 @@
         <br/><br/>
         <ul>
             <li>
-                <a href="#">{{classItem.return.type}}</a>
-
+                <a href="#" ng-bind="classItem.return.type"></a>
                 <div class="param-description">
                     <p class="description markdown-body" ng-bind-html="marked(classItem.return.description)"/>
                 </div>

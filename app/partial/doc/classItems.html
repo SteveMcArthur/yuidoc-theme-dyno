@@ -1,7 +1,6 @@
-<div class="classItem"
-     ng-repeat="classItem in classItems | filter:{'module':module.name}:true | filter:{'class': class.name}:true | orderBy:['itemtype', 'name']">
+<div class="classItem">
 
-    <div>
+    <div ng-repeat="classItem in classItems | filter:{'module': module.name}:true | filter:{'class': class.name}:true | orderBy:['itemtype', 'name']">
         <div class="heading">
             <h3 id="{{module.name | idEncode}}_{{class.name | idEncode}}_{{classItem.name | idEncode}}"
                 class="page-header">
@@ -12,7 +11,8 @@
 
         <div>
             <span class="label label-primary" ng-bind="classItem.itemtype"></span>
-            <span ng-if="classItem.access!==undefined" class="label label-primary" ng-bind="classItem.access"></span>
+                <span ng-if="classItem.access!==undefined" class="label label-primary"
+                      ng-bind="classItem.access"></span>
             <span ng-if="classItem.access===undefined" class="label label-primary">public</span>
             <span ng-if="classItem.static===1" class="label label-primary">static</span>
             <span ng-if="classItem.async===1" class="label label-primary">async</span>

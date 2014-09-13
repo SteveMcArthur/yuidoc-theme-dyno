@@ -1,6 +1,6 @@
 {
   "name": "querifyjs",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "homepage": "https://github.com/pflannery/querifyjs",
   "authors": [
     "pflannery <pflannery@users.noreply.github.com>"
@@ -26,13 +26,13 @@
   "dependencies": {
     "promise-extras": "1.3.0"
   },
-  "_release": "0.8.1",
+  "_release": "0.9.0",
   "_resolution": {
     "type": "version",
-    "tag": "0.8.1",
-    "commit": "e0000c79b77597d9b264b90b849fa6441da01a2d"
+    "tag": "0.9.0",
+    "commit": "ba3eef974f0ff12a422315d2af006191e946e8f1"
   },
   "_source": "git://github.com/pflannery/querifyjs.git",
-  "_target": "^0.8.0",
+  "_target": "^0.9.0",
   "_originalSource": "querifyjs"
 }

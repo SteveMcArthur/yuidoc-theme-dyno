@@ -9,7 +9,7 @@
     <ul>
         <li ng-repeat="param in classItem.params">
             <div>
-                <a href="#">{{param.type}}</a> <code class="param-name">{{param.name}}</code>
+                <a href="#" ng-bind="param.type"></a> <code class="param-name" ng-bind="param.name"></code>
             </div>
             <div ng-if="param.description !== undefined" class="param-description">
                 <p class="description markdown-body" ng-bind-html="marked(param.description)"></p>

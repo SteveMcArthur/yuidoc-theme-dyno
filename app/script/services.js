@@ -3,35 +3,33 @@
     "use strict";
 
     var services = angular.module("app.services", ["ngResource", "app.repositories"]);
-    services.constant('yuidocDataPath', 'dist/doc/data.json');
-    services.constant('querify', querify);
 
-    services.service("apiService",
-        function (dataRepository, yuidocDataPath, querify) {
+    services.service("docService",
+        function (projectRepository, modulesRepository, classesRepository, classitemsRepository) {
             return {
-                get: function () {
-                    return dataRepository.read(yuidocDataPath)
-                        .then(function (yuidocDataJSON) {
-                            return yuidocDataJSON;
-                        }
-                    );
+
+	            getProject: function(){
+		            return projectRepository.read();
+	            },
+                getModules: function () {
+                    return modulesRepository.list();
                 },
+	            getClasses: function () {
+		            return classesRepository.list();
+	            },
+	            getClassItems: function () {
+		            return classitemsRepository.list();
+	            },
 	            getGlobalClasses: function () {
 
-		            return dataRepository.read(yuidocDataPath)
-			            .then(function (yuidocData) {
+		            var query = {
+			            $not: {
+				            $has: 'module'
+			            }
+		            };
 
-				            var query = {
-					            $not: {
-						            $has: 'module'
-					            }
-				            };
-
-				            return querify.extract(yuidocData.classes, query);
-			            });
-
+		            return classesRepository.query(query);
 	            }
-
             };
         });
 
