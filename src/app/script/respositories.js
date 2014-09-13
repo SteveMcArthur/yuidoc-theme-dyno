@@ -1,88 +1,80 @@
 (function () {
 
-    "use strict";
+	"use strict";
 
-    var repositories = angular.module("app.repositories", ["ngResource"]);
+	var repositories = angular.module("app.repositories", ["ngResource"]);
 
-    repositories.service("dbProvider", function ($resource) {
-        return {
-            read: function(yuidocDataPath){
+	repositories.service("dbProvider", function ($resource, yuidocDataPath) {
+		return {
+			getDataset: function () {
 
-                return $resource(yuidocDataPath, {})
-                        .get().$promise;
+				var paramDefaults = {},
+					actions = {
+						cache: true
+					};
 
-                        //.catch(helpers.toErrorLog);
-            }
-        };
-    });
+				return $resource(yuidocDataPath, paramDefaults, actions)
+					.get()
+					.$promise;
 
-    repositories.service("dataRepository", function (dbProvider) {
-        return {
-            read: function (sourcePath) {
-                return dbProvider.read(sourcePath);
-            }
-        };
-    });
+				//.catch(helpers.toErrorLog);
+			}
+		};
+	});
 
-    repositories.constant("cachedRepository", function CachedRepository(repositoryServiceName, repository, $cacheFactory) {
+	repositories.service("projectRepository", function (dbProvider) {
+		return {
+			read: function () {
+				return dbProvider.getDataset().then(
+					function (dataset) {
+						return dataset.project;
+					}
+				);
+			}
+		};
+	});
 
-        var cache = $cacheFactory(repositoryServiceName);
-        var cacheKey = "store";
+	repositories.service("modulesRepository", function (dbProvider) {
+		return {
+			list: function () {
+				return dbProvider.getDataset().then(
+					function (dataset) {
+						return dataset.modules;
+					}
+				);
+			}
+		};
+	});
 
-        function getStorageKey(sourcePath) {
-            return sourcePath + "/" + repositoryServiceName + "/" + cacheKey;
-        }
+	repositories.service("classesRepository", function (dbProvider, querify) {
+		return {
+			list: function () {
+				return dbProvider.getDataset().then(
+					function (dataset) {
+						return dataset.classes;
+					}
+				);
+			},
+			query: function (query) {
+				return dbProvider.getDataset().then(
+					function (dataset) {
+						return querify.extract(dataset.classes, query);
+					}
+				);
+			}
+		};
+	});
 
-        return {
-            read: function (sourcePath) {
-                var cacheDatasetKey = getStorageKey(sourcePath || '.');
-                var cached = cache.get(cacheDatasetKey);
-
-                if (cached === undefined) {
-                    // return the Promise
-                    return repository.read(sourcePath)
-                            .then(function (results) {
-                                // store results in the cache
-                                cache.put(cacheDatasetKey, results);
-
-                                // pass on the results
-                                return results;
-                            });
-                }
-
-                // return a resolved promise
-                return Promise.resolve(cached);
-                    //.then(helpers.writeLog("cachedRepository", "reading from cache", cacheDatasetKey));
-            },
-            clearCache: function (sourcePath) {
-                var cacheDatasetKey = getStorageKey(sourcePath);
-                cache.remove(cacheDatasetKey);
-            }
-
-        };
-    });
-
-    /* decorators */
-    repositories.config(["$provide", "cachedRepository", function ($provide, cachedRepository) {
-
-        var reposToCache = [
-            "dataRepository"
-        ];
-
-        // cached interception
-        for(var index=0; index < reposToCache.length; index++) {
-
-            var repoServiceName = reposToCache[index];
-            var repoServiceNameKey = repoServiceName + "Key";
-
-            $provide.value(repoServiceNameKey, repoServiceName);
-
-            $provide.decorator(repoServiceName, [repoServiceNameKey, "$delegate", "$cacheFactory",
-                cachedRepository
-            ]);
-
-        }
-
-    }]);
+	repositories.service("classitemsRepository", function (dbProvider) {
+		return {
+			list: function () {
+				return dbProvider.getDataset().then(
+					function (dataset) {
+						return dataset.classitems;
+					}
+				);
+			}
+		};
+	});
 
 }());

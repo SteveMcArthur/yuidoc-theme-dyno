@@ -30,9 +30,9 @@
 
             <div ng-if="class.is_constructor===1">
                 <strong class="text-muted">Constructor Syntax</strong>
-                <div class="bs-callout bs-callout-primary markdown-body">
-                    new <code>{{class.name}}</code>(<span ng-repeat="param in class.params">{{param.name}}<span
-                        ng-if="$index<classItem.params.length-1">,</span></span>)
+                <div class="bs-callout markdown-body">
+                    new <code>{{class.name}}(<span ng-repeat="param in class.params">{{param.name}}<span
+                        ng-if="$index<classItem.params.length-1">, </span></span>);</code>
                 </div>
             </div>
 
