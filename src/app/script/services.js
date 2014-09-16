@@ -1,36 +1,80 @@
 (function () {
 
-    "use strict";
+	"use strict";
 
-    var services = angular.module("app.services", ["ngResource", "app.repositories"]);
+	var services = angular.module("app.services", ["ngResource", "app.repositories"]);
 
-    services.service("docService",
-        function (projectRepository, modulesRepository, classesRepository, classitemsRepository) {
-            return {
+	services.service("docService",
+		function (projectRepository, modulesRepository, classesRepository, classitemsRepository) {
+			return {
+				getProject: function () {
+					return projectRepository.get();
+				},
+				getModules: function () {
+					return modulesRepository.all();
+				},
+				getClasses: function () {
+					return classesRepository.all();
+				},
+				getClassItems: function () {
+					return classitemsRepository.all();
+				},
+				getGlobalClasses: function () {
 
-	            getProject: function(){
-		            return projectRepository.read();
-	            },
-                getModules: function () {
-                    return modulesRepository.list();
-                },
-	            getClasses: function () {
-		            return classesRepository.list();
-	            },
-	            getClassItems: function () {
-		            return classitemsRepository.list();
-	            },
-	            getGlobalClasses: function () {
+					var query = {
+						$not: {
+							$has: 'module'
+						}
+					};
 
-		            var query = {
-			            $not: {
-				            $has: 'module'
-			            }
-		            };
+					return classesRepository.query(query);
+				}
+			};
+		});
 
-		            return classesRepository.query(query);
-	            }
-            };
-        });
+	services.service("iconSidebarService",
+		function (elementService) {
+
+			var iconSidebarService = {
+				closeOpenSidebars: function () {
+					$('.docMain').removeClass('sidebarActive');
+					$('.popoverSidebar').removeClass('in');
+					$('.iconSidebar .btn-pill').removeClass('active');
+				},
+				openSidebar: function (iconLiElement) {
+					var sidebarId = elementService.getDataTarget(iconLiElement);
+					$(sidebarId).addClass('in');
+					$('.docMain').addClass('sidebarActive');
+					iconLiElement.classList.add('active');
+				},
+				closeSidebar: function (iconLiElement) {
+					var sidebarId = elementService.getDataTarget(iconLiElement);
+					document.querySelector(sidebarId).classList.remove('in');
+					document.querySelector('.docMain').classList.remove('sidebarActive');
+					iconLiElement.classList.remove('active');
+				}
+			};
+
+			return iconSidebarService;
+		}
+	);
+
+	services.service("elementService",
+		function () {
+
+			var elementService = {
+				isElementActive: function (sourceElement) {
+					return sourceElement.classList.contains("active");
+				},
+				getDataTarget: function (sourceElement) {
+					return sourceElement.getAttribute('data-target');
+				}
+			};
+
+			return elementService;
+		}
+	);
+
+
 
 }());

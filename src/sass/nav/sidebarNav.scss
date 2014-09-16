@@ -1,21 +1,61 @@
-.sidebarContainer {
+.iconSidebar {
+  float: left;
   position: fixed;
-  top: 50px;
+  top: 51px;
   bottom: 0;
-  left: 0;
+  background-color: #222;
+
+  .nav-pills {
+
+    .active a {
+      color: #222;
+      background-color: white;
+
+      &:hover {
+        color: #222 !important;
+        background-color: white !important;
+      }
+
+    }
+
+  }
+
+  .btn-pill {
+    padding: 0px;
+    border: 0px;
+    a {
+      border-radius: 0px;
+      color: white;
+
+      &:hover {
+        color: #222;
+        background-color: white;
+      }
+    }
+
+  }
+
+}
+
+.iconSidebar .fa {
+  font-size: 36px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.popoverSidebar {
+  position: fixed;
   z-index: 1000;
-  display: block;
-  padding: 20px;
+  padding-top: 0px;
   overflow-x: hidden;
   overflow-y: auto;
   border-right: 1px solid;
   border-right-color: #EEE;
+  transition: initial;
+  height: 100%;
+  width: 200px;
 
   .sidebarNav {
-    margin-right: -20px;
-    margin-bottom: 20px;
-    margin-left: -20px;
-
     .fa {
       padding-right: 5px;
     }
@@ -28,19 +68,8 @@
   }
 }
 
-.apiSidebarToggle {
-  display: block;
-  float: left;
-}
-
-@media (max-width: 1200px) {
-  .apiSidebar {
-    display: none;
-  }
-}
-
-@media (min-width: 1200px) {
-  .apiSidebar {
-    display: block !important;
-  }
+.main {
+  position: absolute;
+  top: 51px;
+  left: 70px;
 }

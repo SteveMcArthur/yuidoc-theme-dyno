@@ -14,7 +14,7 @@
             <div ng-if="param.description !== undefined" class="param-description">
                 <p class="description markdown-body" ng-bind-html="marked(param.description)"></p>
             </div>
-            <ng-include ng-if="classItem.subprops !== undefined" src="'app/partial/doc/classItem/params.html'"
+            <ng-include ng-if="classItem.subprops !== undefined" src="'app/view/partial/doc/classItem/params.html'"
                         ng-init="classItem = {params: classItem.subprops}"></ng-include>
         </li>
     </ul>

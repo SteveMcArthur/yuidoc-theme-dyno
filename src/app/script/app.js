@@ -1,6 +1,6 @@
 (function () {
-    "use strict";
-    var app = angular.module('app', ['ngRoute', 'app.controllers', 'app.filters', 'app.directives']);
+	"use strict";
+	var app = angular.module('app', ['ngRoute', 'app.controllers', 'app.filters', 'app.directives']);
 
 	marked.setOptions({
 		highlight: function (code) {
