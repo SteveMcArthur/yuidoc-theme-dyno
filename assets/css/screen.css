@@ -14,66 +14,119 @@
    ========================================================================== */
 @media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/doc\/doc\.scss}line{font-family:\000031}}
 .docMain {
-  padding: 20px;
-  padding-top: 50px;
+  position: relative;
+  left: 20px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/doc\/doc\.scss}line{font-family:\000035}}
+.docMain .page-header {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/doc\/doc\.scss}line{font-family:\0000310}}
 .docMain .fa {
   padding-right: 5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/doc\/doc\.scss}line{font-family:\0000316}}
+.moduleItemType {
+  color: #856819;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/doc\/doc\.scss}line{font-family:\0000320}}
+.classItemType {
+  color: #FF840A;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/doc\/doc\.scss}line{font-family:\0000324}}
+.methodItemType {
+  color: #2B61B4;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/doc\/doc\.scss}line{font-family:\0000328}}
+.propertyItemType {
+  color: #DCC800;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/doc\/doc\.scss}line{font-family:\0000333}}
+.sidebarActive {
+  left: 220px;
 }
 
 /* ==========================================================================
    Nav
    ========================================================================== */
 @media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\000031}}
-.sidebarContainer {
+.iconSidebar {
+  float: left;
   position: fixed;
-  top: 50px;
+  top: 51px;
   bottom: 0;
-  left: 0;
+  background-color: #222;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000310}}
+.iconSidebar .nav-pills .active a {
+  color: #222;
+  background-color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000314}}
+.iconSidebar .nav-pills .active a:hover {
+  color: #222 !important;
+  background-color: white !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000323}}
+.iconSidebar .btn-pill {
+  padding: 0px;
+  border: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000326}}
+.iconSidebar .btn-pill a {
+  border-radius: 0px;
+  color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000330}}
+.iconSidebar .btn-pill a:hover {
+  color: #222;
+  background-color: white;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000340}}
+.iconSidebar .fa {
+  font-size: 36px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000346}}
+.popoverSidebar {
+  position: fixed;
   z-index: 1000;
-  display: block;
-  padding: 20px;
+  padding-top: 0px;
   overflow-x: hidden;
   overflow-y: auto;
   border-right: 1px solid;
   border-right-color: #EEE;
+  transition: initial;
+  height: 100%;
+  width: 200px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000314}}
-.sidebarContainer .sidebarNav {
-  margin-right: -20px;
-  margin-bottom: 20px;
-  margin-left: -20px;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000319}}
-.sidebarContainer .sidebarNav .fa {
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000359}}
+.popoverSidebar .sidebarNav .fa {
   padding-right: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000324}}
-.sidebarContainer .filterInput {
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000364}}
+.popoverSidebar .filterInput {
   border: 1px solid #DFDFDF;
   padding-left: 2px;
   color: #444;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000331}}
-.apiSidebarToggle {
-  display: block;
-  float: left;
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000371}}
+.main {
+  position: absolute;
+  top: 51px;
+  left: 70px;
 }
 
-@media (max-width: 1200px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000337}}
-  .apiSidebar {
-    display: none;
-  }
-}
-@media (min-width: 1200px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/dev\/GitHub\/pflannery\/yuidoc-theme-dyno\/src\/sass\/nav\/sidebarNav\.scss}line{font-family:\0000343}}
-  .apiSidebar {
-    display: block !important;
-  }
-}
 /* ==========================================================================
    Callout
    ========================================================================== */

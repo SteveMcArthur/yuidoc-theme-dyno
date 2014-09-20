@@ -4,25 +4,7 @@
 	var controllers = angular.module("app.controllers", ["app.services", "ngSanitize"]);
 
 	controllers.controller("appController",
-		function appController($scope, docService, marked, hljs) {
-
-			// adds loading state object
-			$scope.getClassItemTypeColour = function (classItemType) {
-				switch (classItemType) {
-					case "module":
-						return "#534D4A";
-					case "class":
-						return "#856819";
-					case "method":
-						return "#2B6182";
-					case "property":
-						return "#6B1E4C";
-					case "attribute":
-						return "purple";
-					default:
-						return "black";
-				}
-			};
+		function appController($scope, docService, marked) {
 
 			$scope.marked = marked;
 
@@ -51,22 +33,65 @@
 					console.error(error);
 				});
 
+			$scope.getClassesByModuleName = function (moduleName) {
+				var results = {};
+				angular.forEach($scope.classes, function (value, key) {
+					if (value.module === moduleName)
+						results[key] = value;
+				});
+				return results;
+			};
+
+			$scope.getClassItemsByModuleAndClassName = function (moduleName, className) {
+				var results = [];
+				angular.forEach($scope.classItems, function (value) {
+					if (value.module === moduleName && value.class === className)
+						results.push(value);
+				});
+				return results;
+			};
+
 		}
 	);
 
 	controllers.controller("sidebarController",
 		function sidebarController($scope) {
+			$scope.allSidebarFilterText = "";
+			$scope.classesSidebarFilterText = "";
+			$scope.modulesSidebarFilterText = "";
+			$scope.methodsSidebarFilterText = "";
+			$scope.propertiesSidebarFilterText = "";
+		}
+	);
 
-			var moduleFilterText = "";
-			Object.defineProperty($scope, "moduleFilterText", {
-				get: function () {
-					return moduleFilterText;
-				},
-				set: function (newValue) {
-					moduleFilterText = newValue;
-				}
-			});
+	controllers.controller("iconSidebarController",
+		function iconSidebarController($scope, elementService, iconSidebarService) {
 
+			function setupPopovers() {
+
+				var bsPopoverOpts = {
+					delay: {"show": 1, "hide": 1},
+					trigger: 'hover',
+					viewport: 'body',
+					container: 'body'
+				};
+
+				$(".iconSidebar .btn-pill")
+					.popover(bsPopoverOpts)
+					.click(function (event) {
+
+						if (elementService.isElementActive(event.currentTarget)) {
+							iconSidebarService.closeSidebar(event.currentTarget);
+						} else {
+							iconSidebarService.closeOpenSidebars();
+							iconSidebarService.openSidebar(event.currentTarget);
+						}
+
+					});
+
+			}
+
+			setupPopovers();
 		}
 	);
 

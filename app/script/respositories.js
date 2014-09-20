@@ -24,7 +24,7 @@
 
 	repositories.service("projectRepository", function (dbProvider) {
 		return {
-			read: function () {
+			get: function () {
 				return dbProvider.getDataset().then(
 					function (dataset) {
 						return dataset.project;
@@ -36,7 +36,7 @@
 
 	repositories.service("modulesRepository", function (dbProvider) {
 		return {
-			list: function () {
+			all: function () {
 				return dbProvider.getDataset().then(
 					function (dataset) {
 						return dataset.modules;
@@ -48,7 +48,7 @@
 
 	repositories.service("classesRepository", function (dbProvider, querify) {
 		return {
-			list: function () {
+			all: function () {
 				return dbProvider.getDataset().then(
 					function (dataset) {
 						return dataset.classes;
@@ -67,7 +67,7 @@
 
 	repositories.service("classitemsRepository", function (dbProvider) {
 		return {
-			list: function () {
+			all: function () {
 				return dbProvider.getDataset().then(
 					function (dataset) {
 						return dataset.classitems;
