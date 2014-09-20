@@ -1,7 +1,7 @@
 {
   "name": "yuidoc-theme-dyno",
   "description": "yuidoc angular template",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "authors": [
     "pflannery <pflannery@users.noreply.github.com>"
   ],
@@ -12,11 +12,11 @@
   "dependencies": {
     "bootstrap": "~3.2.0",
     "animate.css": "~3.2.0",
-    "angular": "~1.3.0-rc.1",
-    "angular-resource": "~1.3.0-rc.1",
-    "angular-route": "~1.3.0-rc.1",
+    "angular": "~1.3.0-rc.2",
+    "angular-resource": "~1.3.0-rc.2",
+    "angular-route": "~1.3.0-rc.2",
     "marked": "~0.3.2",
-    "angular-sanitize": "~1.2.23",
+    "angular-sanitize": "~1.3.0-rc.2",
     "querifyjs": "^0.9.0",
     "es6-promise": "~1.0.0"
   }
