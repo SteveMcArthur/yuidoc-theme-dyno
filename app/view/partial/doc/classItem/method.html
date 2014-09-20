@@ -3,8 +3,11 @@
         <strong class="text-muted">Syntax</strong>
 
         <div class="bs-callout markdown-body">
-            <code><span ng-bind="classItem.name"></span>(<span ng-repeat="param in classItem.params" ng-bind="param.name"><span
-                ng-if="$index<classItem.params.length-1">, </span></span>);</code>
+            <code>
+                <span ng-bind="classItem.name"></span>(<span ng-repeat="param in classItem.params">
+                    <span ng-bind="param.name"></span><span ng-if="$index<classItem.params.length-1">, </span>
+                </span>);
+            </code>
         </div>
     </div>
 
