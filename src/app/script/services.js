@@ -27,7 +27,20 @@
 						}
 					};
 
-					return classesRepository.query(query);
+					return classesRepository.extract(query);
+				},
+				getClassesByModuleName: function (moduleName) {
+					var query = {
+						module: moduleName
+					};
+					return classesRepository.extract(query);
+				},
+				getClassItemsByModuleAndClassName: function (moduleName, className) {
+					var query = {
+						module: moduleName,
+						class: className
+					};
+					return classitemsRepository.filter(query);
 				}
 			};
 		});

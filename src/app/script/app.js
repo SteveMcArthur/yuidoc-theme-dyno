@@ -11,6 +11,6 @@
 	app.constant("marked", window.marked);
 	app.constant("hljs", window.hljs);
 	app.constant('yuidocDataPath', 'dist/doc/data.json');
-	app.constant('querify', querify);
+	app.constant('querifySync', querify.sync);
 
 }());

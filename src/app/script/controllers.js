@@ -33,23 +33,8 @@
 					console.error(error);
 				});
 
-			$scope.getClassesByModuleName = function (moduleName) {
-				var results = {};
-				angular.forEach($scope.classes, function (value, key) {
-					if (value.module === moduleName)
-						results[key] = value;
-				});
-				return results;
-			};
-
-			$scope.getClassItemsByModuleAndClassName = function (moduleName, className) {
-				var results = [];
-				angular.forEach($scope.classItems, function (value) {
-					if (value.module === moduleName && value.class === className)
-						results.push(value);
-				});
-				return results;
-			};
+			$scope.getClassesByModuleName = docService.getClassesByModuleName;
+			$scope.getClassItemsByModuleAndClassName = docService.getClassItemsByModuleAndClassName;
 
 		}
 	);

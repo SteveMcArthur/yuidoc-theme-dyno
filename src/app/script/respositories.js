@@ -16,8 +16,6 @@
 				return $resource(yuidocDataPath, paramDefaults, actions)
 					.get()
 					.$promise;
-
-				//.catch(helpers.toErrorLog);
 			}
 		};
 	});
@@ -46,33 +44,46 @@
 		};
 	});
 
-	repositories.service("classesRepository", function (dbProvider, querify) {
+	repositories.service("classesRepository", function (dbProvider, querifySync) {
+
+		var cachedClasses;
+
 		return {
 			all: function () {
-				return dbProvider.getDataset().then(
-					function (dataset) {
-						return dataset.classes;
-					}
-				);
+				if (cachedClasses === undefined) {
+					return dbProvider.getDataset().then(
+						function (dataset) {
+							cachedClasses = dataset.classes;
+							return cachedClasses;
+						}
+					);
+				}
+				return cachedClasses;
 			},
-			query: function (query) {
-				return dbProvider.getDataset().then(
-					function (dataset) {
-						return querify.extract(dataset.classes, query);
-					}
-				);
+			extract: function (query) {
+				return querifySync.extract(cachedClasses, query);
 			}
 		};
 	});
 
-	repositories.service("classitemsRepository", function (dbProvider) {
+	repositories.service("classitemsRepository", function (dbProvider, querifySync) {
+
+		var cachedClassItems;
+
 		return {
 			all: function () {
-				return dbProvider.getDataset().then(
-					function (dataset) {
-						return dataset.classitems;
-					}
-				);
+				if (cachedClassItems === undefined) {
+					return dbProvider.getDataset().then(
+						function (dataset) {
+							cachedClassItems = dataset.classitems;
+							return cachedClassItems;
+						}
+					);
+				}
+				return cachedClassItems;
+			},
+			filter: function (query) {
+				return querifySync.filter(cachedClassItems, query);
 			}
 		};
 	});
