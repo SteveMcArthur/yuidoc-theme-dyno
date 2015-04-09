@@ -1,0 +1,15 @@
+(function() {
+  "use strict";
+  var app = angular.module('app', ['app.controllers', 'app.filters', 'app.directives']);
+
+  marked.setOptions({
+    highlight: function(code) {
+      return hljs.highlightAuto(code).value;
+    }
+  });
+
+  app.constant("marked", window.marked);
+  app.constant("hljs", window.hljs);
+  app.constant('yuidocDataPath', 'dist/doc/data.json');
+  app.constant('querifySync', querify.sync);
+}());
