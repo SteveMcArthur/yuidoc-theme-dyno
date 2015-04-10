@@ -2,7 +2,7 @@
   "name": "yuidoc-theme-dyno",
   "description": "yuidoc angular template",
   "private": "true",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
