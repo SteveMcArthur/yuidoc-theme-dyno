@@ -31,7 +31,7 @@ module.exports = {
     'clean:deployArtifacts',
     'compile',
     'shell:cloneGhPages',
-    'shell:emptyGhPages',
+    'clean:emptyGhPages',
     'copy:srcToGhPages',
     'shell:addAllGhPages',
     'shell:pushGhPages'

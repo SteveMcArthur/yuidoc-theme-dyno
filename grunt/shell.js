@@ -11,17 +11,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    "emptyGhPages": {
-      command: "ls | grep -v '.git' | xargs rm",
-      options: {
-        stdout: true,
-        stderr: true,
-        failOnError: true,
-        execOptions: {
-          cwd: "<%=env.APP_DIR%>/gh-pages"
-        }
-      }
-    },
     "addAllGhPages": {
       command: "git add . -A",
       options: {

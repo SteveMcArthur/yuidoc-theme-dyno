@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       force: true,
       src: [pathUtil.join('<%=env.APP_DIR%>', 'gh-pages')]
     },
-    gutGhPages: {
+    emptyGhPages: {
       force: true,
       src: ['./gh-pages/**/*', '!./gh-pages/.git']
     }
