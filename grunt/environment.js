@@ -7,9 +7,6 @@ module.exports = function(grunt, gruntRootPath) {
   env.NODE = process.execPath;
   env.NPM = env.WINDOWS ? process.execPath.replace('node.exe', 'npm.cmd') : 'npm';
   env.EXT = env.WINDOWS ? '.cmd' : '';
-  env.PACKAGE_PATH = pathUtil.join(env.APP_DIR, 'package.json');
-  env.PACKAGE_DATA = require(env.PACKAGE_PATH);
-
   env.SRC_DIR = pathUtil.join(env.APP_DIR, 'src');
   env.OUT_DIR = pathUtil.join(env.APP_DIR, 'out');
 
@@ -22,7 +19,7 @@ module.exports = function(grunt, gruntRootPath) {
   env.TEST_SRC_DIR = pathUtil.join(env.TEST_DIR, '');
   env.TEST_OUT_DIR = pathUtil.join(env.TEST_DIR, 'out');
 
-  env.DIST_DIR = pathUtil.join(env.APP_DIR, 'dist');
+  env.DIST_DIR = pathUtil.join(env.SRC_DIR, 'dist');
 
   var outFilename = pathUtil.basename(process.cwd());
   if (outFilename.substring(outFilename.length - 2) === 'js')
@@ -34,12 +31,13 @@ module.exports = function(grunt, gruntRootPath) {
   env.OUT_MIN_FILE = outFilename + '.min.js';
   env.OUT_BUNDLE_MIN_FILE = outFilename + '.all.min.js';
 
-  env.CLEAN_FOLDERS = ['dist',
-    'out',
-    'log'];
+  env.CLEAN_FOLDERS = ['dist', 'out', 'log'];
+
+  env.PACKAGE_PATH = pathUtil.join(env.APP_DIR, 'package.json');
 
   return {
-    env: env
+    env: env,
+    pkg: require(env.PACKAGE_PATH)
   };
 
 };

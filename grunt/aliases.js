@@ -6,7 +6,7 @@ module.exports = {
   'compile': [
     'clean:srcArtifacts',
     'jshint:compile',
-    'uglify:bundleToOut'
+    'uglify:minifiyToDist'
   ],
 
   'publish:patch': [
@@ -27,10 +27,14 @@ module.exports = {
     'bump:major'
   ],
 
-  'dist': [
+  'deploy': [
+    'clean:deployArtifacts',
     'compile',
-    'uglify:minifiyToDist'
-    //'yuidoc:generateJSON'
+    'shell:cloneGhPages',
+    'shell:emptyGhPages',
+    'copy:srcToGhPages',
+    'shell:addAllGhPages',
+    'shell:pushGhPages'
   ],
 
   'test': [

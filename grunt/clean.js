@@ -11,11 +11,23 @@ module.exports = function(grunt) {
     },
     srcArtifacts: {
       force: true,
-      src: [pathUtil.join('<%=env.OUT_DIR%>'), pathUtil.join('<%=env.DIST_DIR%>')]
+      src: [
+        pathUtil.join('<%=env.OUT_DIR%>'),
+        pathUtil.join('<%=env.DIST_DIR%>') + '/**/*.js',
+        pathUtil.join('<%=env.DIST_DIR%>') + '/**/*.map'
+      ]
     },
     testArtifacts: {
       force: true,
       src: [pathUtil.join('<%=env.TEST_OUT_DIR%>')]
+    },
+    deployArtifacts: {
+      force: true,
+      src: [pathUtil.join('<%=env.APP_DIR%>', 'gh-pages')]
+    },
+    gutGhPages: {
+      force: true,
+      src: ['./gh-pages/**/*', '!./gh-pages/.git']
     }
   };
 };
