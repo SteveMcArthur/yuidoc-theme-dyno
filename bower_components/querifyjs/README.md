@@ -11,5 +11,46 @@ A No-SQL object query library made for javascript
 
 [Library API](http://pflannery.github.io/querifyjs/)
 
+## Basic Examples
+```js
+   var models = [
+       {name: 'apple'},
+       {name: 'banana'},
+       {name: 'pineapple'},
+       {name: 'strawberry'},
+       {name: 'orange'},
+       {name: 'grapefruit'}
+   ];
+   var query = {
+       name: /apple/,      // regexp to match any names with 'apple' in them
+       $or: {              // or
+           name: 'banana'  // match name against 'banana'
+       }
+   };
+```
+
+```js
+   var results = querify.sync.filter(models, query);
+   // produces [{"name":"apple"},{"name":"banana"},{"name":"pineapple"}]
+   var query = {
+       name: {
+           $right: 'e'     // match the last char in name that contains 'e'
+       }
+   };
+   var results = querify.sync.filter(models, query);
+   // produces [{"name":"apple"},{"name":"pineapple"},{"name":"orange"}]
+```
+
+```js
+   // promise based example
+   var query = {
+       name: /an/          // regexp to match any names with 'an'
+   };
+   querify.promise.filter(models, query)
+           .then(function(results) {
+               // produces [{"name":"banana"},{"name":"orange"}]
+           });
+```
+
 ## Contributing
 Feel free to submit ideas and issues.

@@ -1,11 +1,29 @@
 /**
- * A helper library for working with JS Promises
+ * ###A helper library for working with JS Promises
  *
- * For the browser this class is registered to window.promiseExtras
+ * Installing:
  *
- * For NodeJs it can be required as require("promise-extras");
+ * ####NodeJs:
  *
+ * Will automatically reference any dependencies.
+ *
+ *      run ```npm install promise-extras --save```
+ *
+ * ####Browser:
+ *
+ *      <script type="application/javascript" src="path/to/lib/promise-extras.min.js"></script>
+ *
+ * ####Bower:
+ *
+ *      run ```bower install promise-extras --save```
+ *
+ * @module promiseExtras
+ */
+
+/**
+ * Global class
  * @class promiseExtras
+ * @static
  */
 
 /**
@@ -22,6 +40,7 @@
  * @method every
  * @for promiseExtras
  * @async
+ * @static
  *
  * @param {Array} arrayItems The array to be iterated
  * @param {Function} itemHandler
@@ -137,6 +156,7 @@
  * @method some
  * @for promiseExtras
  * @async
+ * @static
  *
  * @param {Array} arrayItems The array to be iterated
  * @param {Function} itemHandler
@@ -237,6 +257,7 @@
  * @method later
  * @for promiseExtras
  * @async
+ * @static
  *
  * @param {Function} promise Resolution callback
  *
@@ -261,7 +282,7 @@
  * Attaches an array of thenables to the source promise
  * @method attach
  * @for promiseExtras
- * @chain
+ * @static
  *
  * @param {Promise} promise The promise to attach the thenArray to
  * @param {Array} thenArray an array of thenables to attach to the source promise

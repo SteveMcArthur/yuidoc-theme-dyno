@@ -19,20 +19,14 @@
 		$Promise = require("promise");
 	}
 
-	var promiseExtras = (function(Promise) {
+	var promiseExtras = (function (Promise) {
 
 		function promiseEveryTask(arrayItems, itemHandler, currentIndex) {
 
-			// only process if in bounds
-			if (currentIndex < arrayItems.length) {
+			var context = this,
+				nextPromise = function nextPromise(resolve, reject) {
 
-				var context = this;
-
-				// return the promise
-				return new Promise(function (resolve, reject) {
-
-					// make this async.
-					setTimeout(function () {
+					function nextItemHandler() {
 
 						var wasResolved = false,
 							wasRejected = false;
@@ -42,7 +36,7 @@
 
 								// check if this was already resolved
 								if (wasResolved === true) {
-									reject( Error("Resolve cannot be called more than once.") );
+									reject(Error("Resolve cannot be called more than once."));
 									return;
 								}
 
@@ -53,7 +47,7 @@
 
 								wasResolved = true;
 
-								// will handle the user resolver as a value or a Promise
+								// handles the user resolver as a value or a Promise
 								var promiseResolver = Promise.resolve(userResolver);
 
 								promiseResolver.then(function (result) {
@@ -63,7 +57,7 @@
 										return;
 									}
 
-									// if result is a true then continue the iteration
+									// if result is a boolean and true then continue the iteration
 									if (result === true) {
 
 										currentIndex++;
@@ -78,7 +72,7 @@
 										}
 
 									} else {
-										// we're just pass on the result
+										// just pass on the result
 										resolve(result);
 									}
 
@@ -101,102 +95,95 @@
 						if (wasResolved === false && wasRejected === false)
 							reject(new ReferenceError("promiseEvery was not resolved or rejected."));
 
-					}, 0);
+					}
 
-				});
+					setTimeout(nextItemHandler, 0);
+				};
 
-			}
-
+			return new Promise(nextPromise);
 		}
 
-        function promiseSomeTask(arrayItems, itemHandler, currentIndex) {
+		function promiseSomeTask(arrayItems, itemHandler, currentIndex) {
 
-            // only process if in bounds
-            if (currentIndex < arrayItems.length) {
+			var context = this,
+				nextPromise = function (resolve, reject) {
 
-                var context = this;
+					function nextItemHandler() {
 
-                // return the promise
-                return new Promise(function (resolve, reject) {
+						var wasResolved = false,
+							wasRejected = false;
 
-                    // make this async.
-                    setTimeout(function () {
+						itemHandler.call(context, arrayItems[currentIndex], currentIndex,
+							function handleUserResolver(userResolver) {
 
-                        var wasResolved = false,
-                            wasRejected = false;
+								// check if this was already resolved
+								if (wasResolved === true) {
+									reject(Error("Resolve cannot be called more than once."));
+									return;
+								}
 
-                        itemHandler.call(context, arrayItems[currentIndex], currentIndex,
-                            function handleUserResolver(userResolver) {
+								// check for rejection
+								if (wasRejected === true) {
+									return;
+								}
 
-                                // check if this was already resolved
-                                if (wasResolved === true) {
-                                    reject( Error("Resolve cannot be called more than once.") );
-                                    return;
-                                }
+								wasResolved = true;
 
-                                // check for rejection
-                                if (wasRejected === true) {
-                                    return;
-                                }
+								// will handle the user resolver as a value or a Promise
+								var promiseResolver = Promise.resolve(userResolver);
 
-                                wasResolved = true;
+								promiseResolver.then(function (result) {
 
-                                // will handle the user resolver as a value or a Promise
-                                var promiseResolver = Promise.resolve(userResolver);
+									// check for rejection
+									if (wasRejected === true) {
+										return;
+									}
 
-                                promiseResolver.then(function (result) {
+									// if result is a false then continue the iteration
+									if (result === false) {
 
-                                    // check for rejection
-                                    if (wasRejected === true) {
-                                        return;
-                                    }
+										currentIndex++;
 
-                                    // if result is a false then continue the iteration
-                                    if (result === false) {
+										if (currentIndex < arrayItems.length) {
+											resolve(
+												promiseSomeTask.call(context, arrayItems, itemHandler, currentIndex)
+											);
+										} else {
+											// iteration ended
+											resolve(false);
+										}
 
-                                        currentIndex++;
+									} else if (result === true) {
+										resolve(true);
+									} else {
+										resolve(false);
+									}
 
-                                        if (currentIndex < arrayItems.length) {
-                                            resolve(
-                                                promiseSomeTask.call(context, arrayItems, itemHandler, currentIndex)
-                                            );
-                                        } else {
-                                            // iteration ended
-                                            resolve(false);
-                                        }
+								}).catch(function (error) {
+									wasRejected = true;
+									reject(error);
+								});
 
-                                    } else if (result === true) {
-                                        resolve(true);
-                                    } else {
-                                        resolve(false);
-                                    }
+							}, function handleUserRejection(error) {
+								// check for rejection
+								if (wasRejected === true) {
+									throw new Error("Reject cannot be called more than once.");
+								}
 
-                                }).catch(function (error) {
-                                    wasRejected = true;
-                                    reject(error);
-                                });
+								wasRejected = true;
+								reject(error);
+							});
 
-                            }, function handleUserRejection(error) {
-                                // check for rejection
-                                if (wasRejected === true) {
-                                    throw new Error("Reject cannot be called more than once.");
-                                }
+						// when wasResolved and wasRejected is false (throw error)
+						if (wasResolved === false && wasRejected === false)
+							reject(new ReferenceError("promiseEvery was not resolved or rejected."));
+					}
 
-                                wasRejected = true;
-                                reject(error);
-                            });
+					setTimeout(nextItemHandler, 0);
+				};
 
-                        // when wasResolved and wasRejected is false (throw error)
-                        if (wasResolved === false && wasRejected === false)
-                            reject(new ReferenceError("promiseEvery was not resolved or rejected."));
-
-                    }, 0);
-
-                });
-
-            }
-
-        }
+			return new Promise(nextPromise);
+		}
 
 		function promiseEvery(arrayItems, itemHandler) {
 
@@ -216,35 +203,36 @@
 			return promiseEveryTask.call(this, arrayItems, itemHandler, 0);
 		}
 
-        function promiseSome(arrayItems, itemHandler) {
+		function promiseSome(arrayItems, itemHandler) {
 
-            if (!arrayItems) {
-                throw new ReferenceError("Unspecified array items.")
-            }
+			if (!arrayItems) {
+				throw new ReferenceError("Unspecified array items.")
+			}
 
-            if (!itemHandler) {
-                throw new ReferenceError("Unspecified item handler method.")
-            }
+			if (!itemHandler) {
+				throw new ReferenceError("Unspecified item handler method.")
+			}
 
-            if (arrayItems.length === 0) {
-                return Promise.resolve(false);
-            }
+			if (arrayItems.length === 0) {
+				return Promise.resolve(false);
+			}
 
-            // returns a Promise
-            return promiseSomeTask.call(this, arrayItems, itemHandler, 0);
-        }
+			// returns a Promise
+			return promiseSomeTask.call(this, arrayItems, itemHandler, 0);
+		}
 
 		function promiseLater(resolution, timeout) {
-			var context = this;
-
 			if (!resolution) {
 				throw new ReferenceError("Unspecified resolution callback.")
 			}
 
-			return new Promise(function(resolve, reject) {
-				setTimeout(function() {
+			var context = this,
+				resTimeout = timeout || 0;
+
+			return new Promise(function (resolve, reject) {
+				setTimeout(function () {
 					resolution.call(context, resolve, reject);
-				}, timeout || 0);
+				}, resTimeout);
 			});
 
 		}
@@ -259,7 +247,7 @@
 				throw new ReferenceError("Unspecified attach array.")
 			}
 
-			thenArray.forEach(function(arrayValue) {
+			thenArray.forEach(function (arrayValue) {
 
 				if (typeof arrayValue === 'function')
 					attachToPromise = attachToPromise.then(arrayValue);
@@ -279,10 +267,10 @@
 		 * @class promiseExtras
 		 */
 		return {
-            attach: promiseAttach,
+			attach: promiseAttach,
 			every: promiseEvery,
-            later: promiseLater,
-            some: promiseSome
+			later: promiseLater,
+			some: promiseSome
 		};
 
 	}($Promise));
@@ -292,7 +280,7 @@
 		/* browser */
 		window.promiseExtras = promiseExtras;
 	} else if (typeof module !== "undefined" &&
-				typeof module.exports !== "undefined") {
+		typeof module.exports !== "undefined") {
 		/* node */
 		module.exports = promiseExtras;
 	}

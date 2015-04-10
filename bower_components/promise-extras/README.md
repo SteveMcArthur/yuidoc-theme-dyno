@@ -21,7 +21,7 @@ or
 
 ## Documentation
 
-- [Library API](http://pflannery.github.io/promise-extras/api/classes/promiseExtras.html)
+- [Library API](http://pflannery.github.io/promise-extras/)
 
 ## Contributing
 Feel free to submit ideas and issues.
