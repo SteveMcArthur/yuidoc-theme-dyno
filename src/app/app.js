@@ -1,5 +1,5 @@
 (function() {
-  "use strict";
+  'use strict';
   var app = angular.module('app', ['app.controllers', 'app.filters', 'app.directives']);
 
   marked.setOptions({
@@ -8,8 +8,8 @@
     }
   });
 
-  app.constant("marked", window.marked);
-  app.constant("hljs", window.hljs);
+  app.constant('marked', window.marked);
+  app.constant('hljs', window.hljs);
   app.constant('yuidocDataPath', 'dist/doc/data.json');
   app.constant('querifySync', querify.sync);
 }());

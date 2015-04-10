@@ -7,7 +7,7 @@
   "forin": true,
   "immed": true,
   "latedef": "nofunc",
-  "maxlen": 80,
+  "maxlen": 130,
   "newcap": true,
   "noarg": true,
   "noempty": true,
@@ -26,7 +26,10 @@
     "inject",
     "module",
     "require",
-    "process"
+    "process",
+    "marked",
+    "hljs",
+    "querify"
   ],
   "quotmark": true,
   "trailing": true,
