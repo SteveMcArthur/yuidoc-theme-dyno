@@ -49,10 +49,10 @@
   );
 
   controllers.controller('iconSidebarController',
-    function iconSidebarController($scope, elementService, iconSidebarService) {
+    function iconSidebarController($scope, iconSidebarService) {
 
       function onSidebarClick(event) {
-        if (elementService.isElementActive(event.currentTarget)) {
+        if (event.currentTarget.classList.contains("active")) {
           iconSidebarService.closeSidebar(event.currentTarget);
         } else {
           iconSidebarService.closeOpenSidebars();
