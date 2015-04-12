@@ -1,1272 +1,1015 @@
 {
-    "project": {
-        "name": "queryifyjs",
-        "description": "A No-SQL object query library made for javascript",
-        "version": "0.16.0",
-        "url": "https://github.com/pflannery/queryifyjs"
+  "project": {
+    "name": "querifyjs",
+    "description": "A No-SQL object query library made for javascript",
+    "version": "0.10.0",
+    "url": "https://github.com/pflannery/querifyjs"
+  },
+  "files": {
+    "src\\Query.js": {
+      "name": "src\\Query.js",
+      "modules": {},
+      "classes": {
+        "Query": 1
+      },
+      "fors": {},
+      "namespaces": {}
     },
-    "files": {
-        "src\\Query.js": {
-            "name": "src\\Query.js",
-            "modules": {},
-            "classes": {
-                "Query": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src\\QueryComparisons.js": {
-            "name": "src\\QueryComparisons.js",
-            "modules": {},
-            "classes": {
-                "QueryComparisons": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src\\QueryOperations.js": {
-            "name": "src\\QueryOperations.js",
-            "modules": {},
-            "classes": {
-                "QueryOperations": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src\\QueryPromise.js": {
-            "name": "src\\QueryPromise.js",
-            "modules": {},
-            "classes": {
-                "QueryPromise": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src\\QueryPromiseComparisons.js": {
-            "name": "src\\QueryPromiseComparisons.js",
-            "modules": {},
-            "classes": {
-                "QueryPromiseComparisons": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src\\QueryPromiseOperations.js": {
-            "name": "src\\QueryPromiseOperations.js",
-            "modules": {},
-            "classes": {
-                "QueryPromiseOperations": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src\\QueryStackTrace.js": {
-            "name": "src\\QueryStackTrace.js",
-            "modules": {},
-            "classes": {
-                "QueryStackTrace": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "src\\global.js": {
-            "name": "src\\global.js",
-            "modules": {
-                "QueryifyJs": 1
-            },
-            "classes": {
-                "Global": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        }
+    "src\\QueryComparisons.js": {
+      "name": "src\\QueryComparisons.js",
+      "modules": {},
+      "classes": {
+        "QueryComparisons": 1
+      },
+      "fors": {},
+      "namespaces": {}
     },
-    "modules": {
-        "QueryifyJs": {
-            "name": "QueryifyJs",
-            "submodules": {},
-            "classes": {
-                "Query": 1,
-                "QueryComparisons": 1,
-                "QueryOperations": 1,
-                "QueryPromise": 1,
-                "QueryPromiseComparisons": 1,
-                "QueryPromiseOperations": 1,
-                "QueryStackTrace": 1,
-                "Global": 1
-            },
-            "fors": {},
-            "namespaces": {},
-            "tag": "main",
-            "file": "src\\global.js",
-            "line": 154,
-            "description": "###A No-SQL object query library made for javascript\n\n####Installing:\n\n######NodeJs:\n\nWill automatically reference any dependencies.\n\n    npm install querifyjs --save\n\n######Bower:\n\n    bower install querifyjs --save\n\n####Referencing:\n\n######Browser:\n\nDependencies:\n\n  [promise-extras](http://github.com/pflannery/promise-extras) Only when you need to use promises, otherwise not required\n\n  [dist/queryify.all.min.js](https://github.com/pflannery/querifyjs/) includes this dependency\n\n    <script type=\"application/javascript\" src=\"path/to/lib/queryify.all.min.js\"></script>\n\notherwise manually place before queryify library i.e.\n\n    <script type=\"application/javascript\" src=\"path/to/lib/promise-extras.min.js\"></script>\n    <script type=\"application/javascript\" src=\"path/to/lib/queryify.min.js\"></script>\n\n ```javascript\n // global Query instance\n var queryify = window.queryify.sync;\n\n // global QueryPromise instance (lazy loads deps on first access to this property)\n var queryify = window.queryify.promise;\n ```\n\n######NodeJs:\n\n ```javascript\n // global Query instance (for synchronous operations)\n var queryify = require('querifyjs').sync;\n\n // global QueryPromise instance\n var queryify = require('querifyjs').promise;\n ```\n\n######Overview Examples:\n\n ```javascript\n var models = [\n   {name: 'apple'},\n   {name: 'banana'},\n   {name: 'pineapple'},\n   {name: 'strawberry'},\n   {name: 'orange'},\n   {name: 'grapefruit'}\n ];\n\n var criteria = {\n   name: /apple/,      // regexp to match any names with 'apple' in them\n   $or: {              // or\n     name: 'banana'  // match name against 'banana'\n   }\n };\n\n var results = queryify.sync.filter(models, criteria);\n // produces [{\"name\":\"apple\"},{\"name\":\"banana\"},{\"name\":\"pineapple\"}]\n\n var criteria = {\n   name: {\n     $right: 'e'     // match the last char in name that contains 'e'\n   }\n };\n\n var results = queryify.sync.filter(models, criteria);\n // produces [{\"name\":\"apple\"},{\"name\":\"pineapple\"},{\"name\":\"orange\"}]\n\n // direct value queries\n\n var result = queryify.sync.one(\"myvalue\", {$equals: 'myvalue'});\n // promise based example\n\n var criteria = {\n   name: /an/          // regexp to match any names with 'an'\n };\n\n queryify.promise.filter(models, criteria)\n   .then(function(results) {\n     // produces [{\"name\":\"banana\"},{\"name\":\"orange\"}]\n   );\n ```",
-            "itemtype": "main"
-        }
+    "src\\QueryOperations.js": {
+      "name": "src\\QueryOperations.js",
+      "modules": {},
+      "classes": {
+        "QueryOperations": 1
+      },
+      "fors": {},
+      "namespaces": {}
     },
-    "classes": {
-        "Query": {
-            "name": "Query",
-            "shortname": "Query",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "QueryifyJs",
-            "namespace": "",
-            "file": "src\\Query.js",
-            "line": 22,
-            "description": "Class for creating synchronous Query instances.",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "queryOperations",
-                    "description": "",
-                    "type": "QueryOperations"
-                },
-                {
-                    "name": "queryComparisons",
-                    "description": "",
-                    "type": "QueryComparisons"
-                },
-                {
-                    "name": "queryStackTrace",
-                    "description": "",
-                    "type": "QueryStackTrace"
-                },
-                {
-                    "name": "sharedContext",
-                    "description": "passed to the custom compare methods",
-                    "type": "Object"
-                }
-            ]
-        },
-        "QueryComparisons": {
-            "name": "QueryComparisons",
-            "shortname": "QueryComparisons",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "QueryifyJs",
-            "namespace": "",
-            "file": "src\\QueryComparisons.js",
-            "line": 23,
-            "description": "Default compare methods."
-        },
-        "QueryOperations": {
-            "name": "QueryOperations",
-            "shortname": "QueryOperations",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "QueryifyJs",
-            "namespace": "",
-            "file": "src\\QueryOperations.js",
-            "line": 22
-        },
-        "QueryPromise": {
-            "name": "QueryPromise",
-            "shortname": "QueryPromise",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "QueryifyJs",
-            "namespace": "",
-            "file": "src\\QueryPromise.js",
-            "line": 23,
-            "description": "Class for creating Promise based Query instances.",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "queryOperations",
-                    "description": "",
-                    "type": "QueryOperations"
-                },
-                {
-                    "name": "queryComparisons",
-                    "description": "",
-                    "type": "QueryComparisons"
-                },
-                {
-                    "name": "queryStackTrace",
-                    "description": "",
-                    "type": "QueryStackTrace"
-                },
-                {
-                    "name": "sharedContext",
-                    "description": "passed to the custom compare methods",
-                    "type": "Object"
-                }
-            ]
-        },
-        "QueryPromiseComparisons": {
-            "name": "QueryPromiseComparisons",
-            "shortname": "QueryPromiseComparisons",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "QueryifyJs",
-            "namespace": "",
-            "file": "src\\QueryPromiseComparisons.js",
-            "line": 22,
-            "description": "Promise based compare methods.",
-            "extends": "QueryComparisons"
-        },
-        "QueryPromiseOperations": {
-            "name": "QueryPromiseOperations",
-            "shortname": "QueryPromiseOperations",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "QueryifyJs",
-            "namespace": "",
-            "file": "src\\QueryPromiseOperations.js",
-            "line": 22,
-            "description": "Promise based compare methods.",
-            "extends": "QueryOperations"
-        },
-        "QueryStackTrace": {
-            "name": "QueryStackTrace",
-            "shortname": "QueryStackTrace",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "QueryifyJs",
-            "namespace": "",
-            "file": "src\\QueryStackTrace.js",
-            "line": 22,
-            "description": "Useful for query diagnostics"
-        },
-        "Global": {
-            "name": "Global",
-            "shortname": "Global",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "QueryifyJs",
-            "namespace": "",
-            "file": "src\\global.js",
-            "line": 154,
-            "description": "global object"
-        }
+    "src\\QueryPromise.js": {
+      "name": "src\\QueryPromise.js",
+      "modules": {},
+      "classes": {
+        "QueryPromise": 1
+      },
+      "fors": {},
+      "namespaces": {}
     },
-    "classitems": [
+    "src\\QueryPromiseComparisons.js": {
+      "name": "src\\QueryPromiseComparisons.js",
+      "modules": {},
+      "classes": {
+        "QueryPromiseComparisons": 1
+      },
+      "fors": {},
+      "namespaces": {}
+    },
+    "src\\QueryPromiseOperations.js": {
+      "name": "src\\QueryPromiseOperations.js",
+      "modules": {},
+      "classes": {
+        "QueryPromiseOperations": 1
+      },
+      "fors": {},
+      "namespaces": {}
+    },
+    "src\\QueryStackTrace.js": {
+      "name": "src\\QueryStackTrace.js",
+      "modules": {},
+      "classes": {
+        "QueryStackTrace": 1
+      },
+      "fors": {},
+      "namespaces": {}
+    },
+    "src\\global.js": {
+      "name": "src\\global.js",
+      "modules": {
+        "QuerifyJs": 1
+      },
+      "classes": {
+        "Global": 1
+      },
+      "fors": {},
+      "namespaces": {}
+    }
+  },
+  "modules": {
+    "QuerifyJs": {
+      "name": "QuerifyJs",
+      "submodules": {},
+      "classes": {
+        "Query": 1,
+        "QueryComparisons": 1,
+        "QueryOperations": 1,
+        "QueryPromise": 1,
+        "QueryPromiseComparisons": 1,
+        "QueryPromiseOperations": 1,
+        "QueryStackTrace": 1,
+        "Global": 1
+      },
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "src\\global.js",
+      "line": 92,
+      "description": "###A No-SQL object query library made for javascript\n\n####Installing:\n\n######NodeJs:\n\nWill automatically reference any dependencies.\n\n     npm install querifyjs --save\n\n######Bower:\n\n     bower install querifyjs --save\n\n####Referencing:\n\n######Browser:\n\nDependencies:\n\n [promise-extras](http://github.com/pflannery/promise-extras) Only when you need to use promises, otherwise not required\n\n [dist/querify.all.min.js](https://github.com/pflannery/querifyjs/) includes this dependency\n\n     <script type=\"application/javascript\" src=\"path/to/lib/querify.all.min.js\"></script>\n\notherwise manually place before Querify library i.e.\n\n     <script type=\"application/javascript\" src=\"path/to/lib/promise-extras.min.js\"></script>\n     <script type=\"application/javascript\" src=\"path/to/lib/querify.min.js\"></script>\n\n ```javascript\n // global Query instance\n var querify = window.querify.sync;\n\n // global QueryPromise instance (lazy loads deps on first access to this property)\n var querify = window.querify.promise;\n ```\n\n######NodeJs:\n\n ```javascript\n // global Query instance (for synchronous operations)\n var querify = require('querifyjs').sync;\n\n // global QueryPromise instance\n var querify = require('querifyjs').promise;\n ```",
+      "itemtype": "main"
+    }
+  },
+  "classes": {
+    "Query": {
+      "name": "Query",
+      "shortname": "Query",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "QuerifyJs",
+      "namespace": "",
+      "file": "src\\Query.js",
+      "line": 6,
+      "description": "Class for creating synchronous Query instances.",
+      "is_constructor": 1,
+      "params": [
         {
-            "file": "src\\Query.js",
-            "line": 44,
-            "description": "Extracts items from an object dictionary using a criteria object",
-            "itemtype": "method",
-            "name": "extract",
-            "async": 1,
-            "params": [
-                {
-                    "name": "modelDictionary",
-                    "description": "An object dictionary of model objects",
-                    "type": "Object"
-                },
-                {
-                    "name": "criteria",
-                    "description": "The criteria object",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "an  dictionary of model objects.",
-                "type": "Object"
-            },
-            "example": [
-                "\n\n```javascript\n  // the data to query\n  var modelDictionary = {\n    \"item1\": {\n      name: 'cyborg',\n      age: 123\n    },\n    \"item2\": {\n      name: 'borg',\n      age: 223\n    }\n  };\n\n  // the criteria\n  var criteria = {\n    name: {\n      $equals: 'cyborg'\n    }\n  };\n  // run the query\n  var results = queryify.extract(modelDictionary, criteria)\n  // the results, an extracted model dictionary\n```"
-            ],
-            "class": "Query",
-            "module": "QueryifyJs"
+          "name": "queryOperations",
+          "description": "",
+          "type": "QueryOperations"
         },
         {
-            "file": "src\\Query.js",
-            "line": 119,
-            "description": "Filters an array of model objects against a criteria object",
-            "itemtype": "method",
-            "name": "filter",
-            "async": 1,
-            "params": [
-                {
-                    "name": "modelArray",
-                    "description": "An array of data objects",
-                    "type": "Array"
-                },
-                {
-                    "name": "criteria",
-                    "description": "The criteria object",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "who's result is set to an {Array} of filtered objects.",
-                "type": "Promise"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = [{\n   name: 'cyborg',\n   age: 123\n }, {\n   name: 'borg',\n   age: 223\n }];\n\n // the criteria\n var criteria = {\n   name: {\n     $equals: 'cyborg'\n   }\n };\n\n // run the query\n var results = queryify.filter(model, criteria)\n // the results, a filtered array\n```"
-            ],
-            "class": "Query",
-            "module": "QueryifyJs"
+          "name": "queryComparisons",
+          "description": "",
+          "type": "QueryComparisons"
         },
         {
-            "file": "src\\Query.js",
-            "line": 197,
-            "description": "Tests if an array of model objects match against a criteria object",
-            "itemtype": "method",
-            "name": "every",
-            "async": 1,
-            "params": [
-                {
-                    "name": "modelArray",
-                    "description": "An array of data objects",
-                    "type": "Array"
-                },
-                {
-                    "name": "criteria",
-                    "description": "The criteria object",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "who's result is set to a {Boolean}.",
-                "type": "Promise"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = [{\n   name: 'cyborg',\n   age: 123\n }, {\n   name: 'borg',\n   age: 223\n }];\n\n // the criteria\n var criteria = {\n   name: {\n     $right: 'g'\n   },\n   age: {\n     $typeof: 'number'\n   }\n };\n\n // run the query\n var result = queryify.every(model, criteria)\n // the result, true or false\n```"
-            ],
-            "class": "Query",
-            "module": "QueryifyJs"
+          "name": "queryStackTrace",
+          "description": "",
+          "type": "QueryStackTrace"
         },
         {
-            "file": "src\\Query.js",
-            "line": 269,
-            "description": "Tests one model object against a criteria object",
-            "itemtype": "method",
-            "name": "one",
-            "async": 1,
-            "params": [
-                {
-                    "name": "model",
-                    "description": "The data object",
-                    "type": "Object"
-                },
-                {
-                    "name": "criteria",
-                    "description": "The criteria object",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "who's result is set to a {Boolean}.",
-                "type": "Promise"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n     name: 'cyborg',\n     age: 123\n };\n\n // the criteria\n var criteria = {\n   name: {\n     $right: 'g',\n     $and: {\n       $left: 'cy'\n     }\n   },\n   $and: {\n     age: {\n       $typeof: 'number',\n       $and: {\n         $equals: 123\n       }\n     }\n   }\n };\n\n // run the query\n var result = queryify.one(model, criteria)\n // the result, true or false\n```"
-            ],
-            "class": "Query",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\Query.js",
-            "line": 329,
-            "description": "Tests if any of the models from an array match against a criteria object",
-            "itemtype": "method",
-            "name": "some",
-            "params": [
-                {
-                    "name": "modelArray",
-                    "description": ""
-                },
-                {
-                    "name": "criteria",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "who's result is set to a {Boolean}.",
-                "type": "Promise"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to criteria\n var model = [{\n   name: 'cyborg',\n   age: 123\n }, {\n   name: 'borg',\n   age: 223\n }];\n\n // the criteria\n var criteria = {\n   age: {\n     $equals: 223\n   }\n };\n\n // run the criteria\n var result = queryify.some(model, criteria)\n // the result, true or false\n```"
-            ],
-            "class": "Query",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 32,
-            "description": "Default compare method that is used when no compare method is specified in the criteria.",
-            "itemtype": "method",
-            "name": "$default",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": "Can be either a string value or a",
-                    "type": "Regexp"
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   author: 'cyborg',\n   title: 'cybertron'\n };\n\n // the criteria\n var criteria = {\n   author: 'cyborg', // equiv to author: {$default: 'cyborg'}\n   title: /^cyber/   // equiv to title: {$default: /^cyber/}\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 62,
-            "description": "Equality and type check. Equivalent to using '==='",
-            "itemtype": "method",
-            "name": "$equals",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   name: {\n     $equals: 'cyborg'\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 89,
-            "description": "Match against the length of the model value being evaluated",
-            "itemtype": "method",
-            "name": "$length",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   name: {\n     $length: 6\n   }\n }\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 116,
-            "description": "Regular expression",
-            "itemtype": "method",
-            "name": "$regexp",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   age: {\n     $regexp: /\\d/ig\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 142,
-            "description": "Match a {String} from the left",
-            "itemtype": "method",
-            "name": "$left",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   name: {\n     $left: 'cyb'\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 168,
-            "description": "Matches a {String} from the right",
-            "itemtype": "method",
-            "name": "$right",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   name: {\n     $right: 'org'\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 195,
-            "description": "Typeof",
-            "itemtype": "method",
-            "name": "$typeof",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   age: {\n     $typeof: 'number'\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 221,
-            "description": "instanceof",
-            "itemtype": "method",
-            "name": "$instanceof",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   age: {\n     $instanceof: Object\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 247,
-            "description": "Converts the modelValue to lower case before making the comparison",
-            "itemtype": "method",
-            "name": "$toLowerCase",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'CYBORG',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   name: {\n     $toLowerCase: 'cyborg'\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 273,
-            "description": "Converts the modelValue to upper case before making the comparison",
-            "itemtype": "method",
-            "name": "$toUpperCase",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   name: {\n     $toUpperCase: 'CYBORG'\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 299,
-            "description": "Matches the modelValue against an array of values",
-            "itemtype": "method",
-            "name": "$inArray",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testArray",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n     name: 'cyborg',\n     age: 123\n };\n\n // the criteria\n var criteria = {\n     name: {\n         $inArray: ['cyborg', 'or-me']\n     }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 325,
-            "description": "Matches the model property names against a single or an array of value(s)",
-            "itemtype": "method",
-            "name": "$has",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n     name: 'cyborg',\n     age: 123\n };\n\n // the criteria\n var criteria = {\n     $has: 'name'\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 355,
-            "description": "Greater than test. Equivalent to using '>'",
-            "itemtype": "method",
-            "name": "$g",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n     name: 'cyborg',\n     age: 123\n };\n\n // the criteria\n var criteria = {\n     age: {\n         $g: 100\n     }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 382,
-            "description": "Greater than equals test. Equivalent to using '>='",
-            "itemtype": "method",
-            "name": "$gte",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   age: {\n     $gte: 123\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 409,
-            "description": "Less than equals test. Equivalent to using '<='",
-            "itemtype": "method",
-            "name": "$lte",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   age: {\n     $lte: 123\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 436,
-            "description": "Less than test. Equivalent to using '<'",
-            "itemtype": "method",
-            "name": "$l",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   age: {\n     $l: 200\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 463,
-            "description": "Equals test. Equivalent to using '=='",
-            "itemtype": "method",
-            "name": "$e",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   age: {\n     $e: 123\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 490,
-            "description": "Not Equals test. Equivalent to using '!='",
-            "itemtype": "method",
-            "name": "$ne",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "testValue",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   name: 'cyborg',\n   age: 123\n };\n\n // the criteria\n var criteria = {\n   age: {\n     $ne: 2\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 517,
-            "description": "Matches a criteria against the model children properties. i.e. return queryify.one(model, criteria)",
-            "itemtype": "method",
-            "name": "$queryOne",
-            "params": [
-                {
-                    "name": "modelValue",
-                    "description": ""
-                },
-                {
-                    "name": "criteria",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   book: {\n     title: 'test',\n     author: 'fred'\n   }\n };\n\n // the criteria\n var criteria = {\n   book: {\n     $queryOne: {\n       title: {\n         $equals: 'test'\n       }\n     }\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 549,
-            "description": "Matches a criteria against an array of models. i.e. return queryify.every(modelArray, criteria)",
-            "itemtype": "method",
-            "name": "$queryEvery",
-            "params": [
-                {
-                    "name": "modelArray",
-                    "description": ""
-                },
-                {
-                    "name": "criteria",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // the data to query\n var model = {\n   books: [{\n     title: 'test',\n     author: 'fred'\n   }, {\n     title: 'another book',\n     author: 'fred'\n   }]\n };\n\n // the criteria\n var criteria = {\n   books: {\n     $queryEvery: {\n       author: {\n         $equals: 'fred'\n       }\n     }\n   }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryComparisons.js",
-            "line": 594,
-            "description": "Matches a criteria against an array of models. i.e. return queryify.some(modelArray, criteria)",
-            "itemtype": "method",
-            "name": "$querySome",
-            "params": [
-                {
-                    "name": "modelArray",
-                    "description": ""
-                },
-                {
-                    "name": "criteria",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "example": [
-                "\n\n```javascript\n // same as $queryEvery except iterates until finds first match, no matches or errors\n\n // the data to query\n var model = {\n   books: [{\n     title: 'test',\n     author: 'fred'\n   }, {\n     title: 'another book',\n     author: 'fred'\n   }]\n };\n\n // the criteria\n var criteria = {\n   books: {\n     $querySome: {\n       author: {\n         $equals: 'fred'\n       }\n     }\n };\n```"
-            ],
-            "class": "QueryComparisons",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryOperations.js",
-            "line": 33,
-            "description": "The logical AND operator (&&)",
-            "itemtype": "method",
-            "name": "$and",
-            "example": [
-                "\n\n```javascript\n  var model = {\n    name: 'cyborg',\n    age: 123\n  };\n\n  var criteria = {\n    name: {\n      $right: 'g',\n      $and: {\n        $left: 'cy'\n      }\n    },\n    $and: {\n      age: {\n        $typeof: 'number',\n        $and: {\n          $equals: 123\n        }\n      }\n    }\n  }\n```"
-            ],
-            "class": "QueryOperations",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryOperations.js",
-            "line": 72,
-            "description": "The logical OR operator (||)",
-            "itemtype": "method",
-            "name": "$or",
-            "example": [
-                "\n\n```javascript\n  var model = {\n    name: 'cyborg',\n    age: 123\n  };\n\n  var criteria = {\n    name: {\n      $right: 'abc',\n      $or: {\n        $left: 'cy'\n      }\n    }\n  };\n```"
-            ],
-            "class": "QueryOperations",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryOperations.js",
-            "line": 102,
-            "description": "The logical negation operator (!) reverses the result of all operations inside it's scope",
-            "itemtype": "method",
-            "name": "$not",
-            "example": [
-                "\n\n```javsacript\n var model = {\n   name: 'cyborg',\n     age: 123\n };\n var criteria = {\n   $not: {\n     name: {\n       $typeof: 'number'\n     },\n     age: {\n       $typeof: 'string'\n     }\n   }\n };\n```"
-            ],
-            "class": "QueryOperations",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryPromise.js",
-            "line": 45,
-            "description": "Extracts items from an object dictionary using a criteria object",
-            "itemtype": "method",
-            "name": "extract",
-            "async": 1,
-            "params": [
-                {
-                    "name": "modelDictionary",
-                    "description": "An object dictionary of model objects",
-                    "type": "Object"
-                },
-                {
-                    "name": "criteria",
-                    "description": "The criteria object",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "an  dictionary of model objects.",
-                "type": "Object"
-            },
-            "example": [
-                "\n\n```javascript\n  // the data to criteria\n  var modelDictionary = {\n    \"item1\": {\n      name: 'cyborg',\n      age: 123\n    },\n    \"item2\": {\n      name: 'borg',\n      age: 223\n    }\n  };\n\n  // the criteria\n  var criteria = {\n    name: {\n      $equals: 'cyborg'\n    }\n  };\n\n  // run the query\n  queryify.extract(modelDictionary, criteria)\n    .then(function (results) {\n      // the results, an extracted model dictionary\n    }).catch (function (error) {\n      // catch any errors\n    })\n    .then(function () {\n      // finally\n    });\n```"
-            ],
-            "class": "QueryPromise",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryPromise.js",
-            "line": 137,
-            "description": "Filters an array of model objects against a criteria object",
-            "itemtype": "method",
-            "name": "filter",
-            "async": 1,
-            "params": [
-                {
-                    "name": "modelArray",
-                    "description": "An array of data objects",
-                    "type": "Array"
-                },
-                {
-                    "name": "criteria",
-                    "description": "The criteria object",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "who's result is set to an {Array} of filtered objects.",
-                "type": "Promise"
-            },
-            "example": [
-                "\n\n```javascript\n  // the data to query\n  var model = [{\n    name: 'cyborg',\n    age: 123\n  }, {\n    name: 'borg',\n    age: 223\n  }];\n\n  // the criteria\n  var criteria = {\n    name: {\n      $equals: 'cyborg'\n    }\n  };\n\n  // run the query\n  queryify.filter(model, criteria)\n    .then(function (results) {\n      // the results, a filtered array\n    }).catch (function (error) {\n      // catch any errors\n    })\n    .then(function () {\n      // finally\n    });\n```"
-            ],
-            "class": "QueryPromise",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryPromise.js",
-            "line": 224,
-            "description": "Tests if an array of model objects match against a criteria object",
-            "itemtype": "method",
-            "name": "every",
-            "async": 1,
-            "params": [
-                {
-                    "name": "modelArray",
-                    "description": "An array of data objects",
-                    "type": "Array"
-                },
-                {
-                    "name": "criteria",
-                    "description": "The criteria object",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "who's result is set to a {Boolean}.",
-                "type": "Promise"
-            },
-            "example": [
-                "\n\n```javascript\n  // the data to query\n  var model = [{\n    name: 'cyborg',\n    age: 123\n  }, {\n    name: 'borg',\n    age: 223\n  }];\n\n  // the criteria\n  var criteria = {\n    name: {\n      $right: 'g'\n    },\n    age: {\n      $typeof: 'number'\n    }\n  };\n\n  // run the criteria\n  queryify.every(model, criteria)\n    .then(function (result) {\n      // the result, true or false\n    })\n    .catch (function (error) {\n      // catch any errors\n    })\n    .then(function () {\n      // finally\n    });\n```"
-            ],
-            "class": "QueryPromise",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryPromise.js",
-            "line": 298,
-            "description": "Tests one model object against a criteria object",
-            "itemtype": "method",
-            "name": "one",
-            "async": 1,
-            "params": [
-                {
-                    "name": "model",
-                    "description": "The data object",
-                    "type": "Object"
-                },
-                {
-                    "name": "criteria",
-                    "description": "The criteria object",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "who's result is set to a {Boolean}.",
-                "type": "Promise"
-            },
-            "example": [
-                "\n\n```javascript\n  // the data to query\n  var model = {\n    name: 'cyborg',\n    age: 123\n  };\n\n  // the criteria\n  var criteria = {\n    name: {\n      $right: 'g',\n      $and: {\n        $left: 'cy'\n      }\n    },\n    $and: {\n      age: {\n        $typeof: 'number',\n          $and: {\n            $equals: 123\n          }\n      }\n    }\n  };\n\n  // run the criteria\n  queryify.one(model, criteria)\n    .then(function (result) {\n      // the result\n    }).catch (function (error) {\n      // catch any errors\n    })\n    .then(function () {\n      // finally\n    });\n```"
-            ],
-            "class": "QueryPromise",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryPromise.js",
-            "line": 364,
-            "description": "Tests if any of the models from an array match against a criteria object",
-            "itemtype": "method",
-            "name": "some",
-            "params": [
-                {
-                    "name": "modelArray",
-                    "description": ""
-                },
-                {
-                    "name": "criteria",
-                    "description": ""
-                }
-            ],
-            "return": {
-                "description": "who's result is set to a {Boolean}.",
-                "type": "Promise"
-            },
-            "example": [
-                "\n\n```javascript\n  // the data to query\n  var model = [{\n    name: 'cyborg',\n    age: 123\n  }, {\n    name: 'borg',\n    age: 223\n  }];\n\n  // the criteria\n  var criteria = {\n    age: {\n      $equals: 223\n    }\n  };\n\n  // run the criteria\n  queryify.some(model, criteria)\n    .then(function (result) {\n      // the result, true or false\n    })\n    .catch (function (error) {\n      // catch any errors\n    })\n    .then(function () {\n      // finally\n    });\n```"
-            ],
-            "class": "QueryPromise",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryStackTrace.js",
-            "line": 28,
-            "description": "On\\off switch for tracing operations and results made when using Query or QueryPromise methods",
-            "itemtype": "property",
-            "name": "on",
-            "type": "Boolean",
-            "class": "QueryStackTrace",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryStackTrace.js",
-            "line": 41,
-            "description": "Resets the trace stack and level",
-            "itemtype": "method",
-            "name": "reset",
-            "class": "QueryStackTrace",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryStackTrace.js",
-            "line": 49,
-            "description": "Stores the trace stack of operations and results made by Query or QueryPromise",
-            "itemtype": "property",
-            "name": "stack",
-            "type": "Array",
-            "class": "QueryStackTrace",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\QueryStackTrace.js",
-            "line": 59,
-            "description": "Writes to  the trace stack which stores the current level and operation parameter",
-            "itemtype": "method",
-            "name": "write",
-            "class": "QueryStackTrace",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\global.js",
-            "line": 162,
-            "description": "A reference to the global QueryPromise instance.",
-            "itemtype": "property",
-            "name": "promise",
-            "type": "QueryPromise",
-            "example": [
-                "\n\n ```javascript\n // referencing the Promise instance\n var queryify = window.queryify.promise;\n\n // accessing the interface\n queryify.one(model, criteria)\n  .then(function(result) {\n\n  });\n ```"
-            ],
-            "class": "Global",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\global.js",
-            "line": 190,
-            "description": "A reference to the synchronous Query global instance.",
-            "itemtype": "property",
-            "name": "sync",
-            "type": "Query",
-            "example": [
-                "\n\n ```javascript\n // referencing the synchronous instance\n var queryify = window.queryify.sync;\n\n // accessing the interface\n queryify.one(model, criteria);\n ```"
-            ],
-            "class": "Global",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\global.js",
-            "line": 206,
-            "description": "A reference to the Query class type for custom initiation.",
-            "itemtype": "property",
-            "name": "Query",
-            "type": "Query",
-            "class": "Global",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\global.js",
-            "line": 211,
-            "description": "A reference to the QueryOperations class type for custom initiation.",
-            "itemtype": "property",
-            "name": "QueryOperations",
-            "type": "QueryOperations",
-            "class": "Global",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\global.js",
-            "line": 216,
-            "description": "A reference to the QueryComparisons class type for custom initiation.",
-            "itemtype": "property",
-            "name": "QueryComparisons",
-            "type": "QueryComparisons",
-            "class": "Global",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\global.js",
-            "line": 221,
-            "description": "A reference to the QueryStackTrace class type for custom initiation.",
-            "itemtype": "property",
-            "name": "QueryStackTrace",
-            "type": "QueryStackTrace",
-            "class": "Global",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\global.js",
-            "line": 228,
-            "description": "An reference to the QueryPromise class type for custom initiation.",
-            "itemtype": "property",
-            "name": "QueryPromise",
-            "type": "QueryPromise",
-            "class": "Global",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\global.js",
-            "line": 237,
-            "description": "An reference to the QueryPromiseOperations class type for custom initiation.",
-            "itemtype": "property",
-            "name": "QueryPromiseOperations",
-            "type": "QueryPromiseOperations",
-            "class": "Global",
-            "module": "QueryifyJs"
-        },
-        {
-            "file": "src\\global.js",
-            "line": 246,
-            "description": "An reference to the QueryPromiseComparisons class type for custom initiation.",
-            "itemtype": "property",
-            "name": "QueryPromiseComparisons",
-            "type": "QueryPromiseComparisons",
-            "class": "Global",
-            "module": "QueryifyJs"
+          "name": "sharedContext",
+          "description": "passed to the custom compare methods",
+          "type": "Object"
         }
-    ],
-    "warnings": []
+      ]
+    },
+    "QueryComparisons": {
+      "name": "QueryComparisons",
+      "shortname": "QueryComparisons",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "QuerifyJs",
+      "namespace": "",
+      "file": "src\\QueryComparisons.js",
+      "line": 6,
+      "description": "Default compare methods."
+    },
+    "QueryOperations": {
+      "name": "QueryOperations",
+      "shortname": "QueryOperations",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "QuerifyJs",
+      "namespace": "",
+      "file": "src\\QueryOperations.js",
+      "line": 5
+    },
+    "QueryPromise": {
+      "name": "QueryPromise",
+      "shortname": "QueryPromise",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "QuerifyJs",
+      "namespace": "",
+      "file": "src\\QueryPromise.js",
+      "line": 6,
+      "description": "Class for creating Promise based Query instances.",
+      "is_constructor": 1,
+      "params": [
+        {
+          "name": "queryOperations",
+          "description": "",
+          "type": "QueryOperations"
+        },
+        {
+          "name": "queryComparisons",
+          "description": "",
+          "type": "QueryComparisons"
+        },
+        {
+          "name": "queryStackTrace",
+          "description": "",
+          "type": "QueryStackTrace"
+        },
+        {
+          "name": "sharedContext",
+          "description": "passed to the custom compare methods",
+          "type": "Object"
+        }
+      ]
+    },
+    "QueryPromiseComparisons": {
+      "name": "QueryPromiseComparisons",
+      "shortname": "QueryPromiseComparisons",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "QuerifyJs",
+      "namespace": "",
+      "file": "src\\QueryPromiseComparisons.js",
+      "line": 6,
+      "description": "Promise based compare methods.",
+      "extends": "QueryComparisons"
+    },
+    "QueryPromiseOperations": {
+      "name": "QueryPromiseOperations",
+      "shortname": "QueryPromiseOperations",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "QuerifyJs",
+      "namespace": "",
+      "file": "src\\QueryPromiseOperations.js",
+      "line": 6,
+      "description": "Promise based compare methods.",
+      "extends": "QueryOperations"
+    },
+    "QueryStackTrace": {
+      "name": "QueryStackTrace",
+      "shortname": "QueryStackTrace",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "QuerifyJs",
+      "namespace": "",
+      "file": "src\\QueryStackTrace.js",
+      "line": 6
+    },
+    "Global": {
+      "name": "Global",
+      "shortname": "Global",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "QuerifyJs",
+      "namespace": "",
+      "file": "src\\global.js",
+      "line": 92,
+      "description": "global object"
+    }
+  },
+  "classitems": [
+    {
+      "file": "src\\Query.js",
+      "line": 28,
+      "description": "Extracts items from an object dictionary using a query object",
+      "itemtype": "method",
+      "name": "extract",
+      "async": 1,
+      "params": [
+        {
+          "name": "modelDictionary",
+          "description": "An object dictionary of model objects",
+          "type": "Object"
+        },
+        {
+          "name": "query",
+          "description": "The query object",
+          "type": "Object"
+        }
+      ],
+      "return": {
+        "description": "an  dictionary of model objects.",
+        "type": "Object"
+      },
+      "example": [
+        "\n     // the data to query\n     var modelDictionary = {\n         \"item1\": {\n             name: 'cyborg',\n             age: 123\n         },\n         \"item2\": {\n             name: 'borg',\n             age: 223\n         }\n     };\n\n     // the query\n     var query = {\n         name: {\n             $equals: 'cyborg'\n         }\n     };\n\n     // run the query\n     var results = querify.extract(modelDictionary, query)\n     // the results, an extracted model dictionary"
+      ],
+      "class": "Query",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\Query.js",
+      "line": 94,
+      "description": "Filters an array of model objects against a query object",
+      "itemtype": "method",
+      "name": "filter",
+      "async": 1,
+      "params": [
+        {
+          "name": "modelArray",
+          "description": "An array of data objects",
+          "type": "Array"
+        },
+        {
+          "name": "query",
+          "description": "The query object",
+          "type": "Object"
+        }
+      ],
+      "return": {
+        "description": "who's result is set to an {Array} of filtered objects.",
+        "type": "Promise"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = [{\n         name: 'cyborg',\n         age: 123\n     }, {\n         name: 'borg',\n         age: 223\n     }];\n\n     // the query\n     var query = {\n         name: {\n             $equals: 'cyborg'\n         }\n     };\n\n     // run the query\n     var results = querify.filter(model, query)\n     // the results, a filtered array"
+      ],
+      "class": "Query",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\Query.js",
+      "line": 156,
+      "description": "Tests if an array of model objects match against a query object",
+      "itemtype": "method",
+      "name": "many",
+      "async": 1,
+      "params": [
+        {
+          "name": "modelArray",
+          "description": "An array of data objects",
+          "type": "Array"
+        },
+        {
+          "name": "query",
+          "description": "The query object",
+          "type": "Object"
+        }
+      ],
+      "return": {
+        "description": "who's result is set to a {Boolean}.",
+        "type": "Promise"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = [{\n         name: 'cyborg',\n         age: 123\n     }, {\n         name: 'borg',\n         age: 223\n     }];\n\n     // the query\n     var query = {\n             name: {\n             $right: 'g'\n         },\n         age: {\n             $typeof: 'number'\n         }\n     };\n\n     // run the query\n     var result = querify.many(model, query)\n     // the result, true or false"
+      ],
+      "class": "Query",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\Query.js",
+      "line": 212,
+      "description": "Tests one model object against a query object",
+      "itemtype": "method",
+      "name": "one",
+      "async": 1,
+      "params": [
+        {
+          "name": "model",
+          "description": "The data object",
+          "type": "Object"
+        },
+        {
+          "name": "query",
+          "description": "The query object",
+          "type": "Object"
+        }
+      ],
+      "return": {
+        "description": "who's result is set to a {Boolean}.",
+        "type": "Promise"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         name: {\n             $right: 'g',\n             $and: {\n                 $left: 'cy'\n             }\n         },\n         $and: {\n             age: {\n                 $typeof: 'number',\n                 $and: {\n                     $equals: 123\n                 }\n             }\n         }\n     };\n\n     // run the query\n     var result = querify.one(model, query)\n     // the result, true or false"
+      ],
+      "class": "Query",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\Query.js",
+      "line": 267,
+      "description": "Tests if any of the models from an array match against a query object",
+      "itemtype": "method",
+      "name": "some",
+      "params": [
+        {
+          "name": "modelArray",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "who's result is set to a {Boolean}.",
+        "type": "Promise"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = [{\n         name: 'cyborg',\n         age: 123\n     }, {\n         name: 'borg',\n         age: 223\n     }];\n\n     // the query\n     var query = {\n         age: {\n             $equals: 223\n         }\n     };\n\n     // run the query\n     var result = querify.some(model, query)\n     // the result, true or false"
+      ],
+      "class": "Query",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 15,
+      "description": "Default compare method that is used when no compare method is specified in the query.",
+      "itemtype": "method",
+      "name": "$default",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testValue",
+          "description": "Can be either a string value or a",
+          "type": "Regexp"
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         author: 'cyborg',\n         title: 'cybertron'\n     };\n\n     // the query\n     var query = {\n         author: 'cyborg', // equiv to author: {$default: 'cyborg'}\n         title: /^cyber/   // equiv to title: {$default: /^cyber/}\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 42,
+      "description": "Equality and type check. Equivalent to using '==='",
+      "itemtype": "method",
+      "name": "$equals",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testValue",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         name: {\n             $equals: 'cyborg'\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 66,
+      "description": "Regular expression",
+      "itemtype": "method",
+      "name": "$regexp",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testValue",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         age: {\n             $regexp: /\\d/ig\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 89,
+      "description": "Match a {String} from the left",
+      "itemtype": "method",
+      "name": "$left",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testValue",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         age: {\n             $left: 'cyb'\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 112,
+      "description": "Matches a {String} from the right",
+      "itemtype": "method",
+      "name": "$right",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testValue",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         age: {\n             $right: 'org'\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 136,
+      "description": "Typeof",
+      "itemtype": "method",
+      "name": "$typeof",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testValue",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         age: {\n             $typeof: 'number'\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 159,
+      "description": "instanceof",
+      "itemtype": "method",
+      "name": "$instanceof",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testValue",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         age: {\n             $instanceof: Object\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 182,
+      "description": "Converts the modelValue to lower case before making the comparison",
+      "itemtype": "method",
+      "name": "$toLowerCase",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testValue",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'CYBORG',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         name: {\n             $toLowerCase: 'cyborg'\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 205,
+      "description": "Converts the modelValue to upper case before making the comparison",
+      "itemtype": "method",
+      "name": "$toUpperCase",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testValue",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         name: {\n             $toUpperCase: 'CYBORG'\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 228,
+      "description": "Matches the modelValue against an array of values",
+      "itemtype": "method",
+      "name": "$inArray",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testArray",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         name: {\n             $inArray: ['cyborg', 'or-me']\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 251,
+      "description": "Matches the model property names against a single or an array of value(s)",
+      "itemtype": "method",
+      "name": "$has",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "testValue",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         $has: 'name'\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 278,
+      "description": "Matches a query against the model children properties. i.e. return querify.one(model, query)",
+      "itemtype": "method",
+      "name": "$queryOne",
+      "params": [
+        {
+          "name": "modelValue",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         book: {\n             title: 'test',\n             author: 'fred'\n         }\n     };\n\n     // the query\n     var query = {\n         book: {\n             $queryOne: {\n                 title: {\n                     $equals: 'test'\n                 }\n             }\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 307,
+      "description": "Matches a query against an array of models. i.e. return querify.many(modelArray, query)",
+      "itemtype": "method",
+      "name": "$queryMany",
+      "params": [
+        {
+          "name": "modelArray",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         books: [{\n             title: 'test',\n             author: 'fred'\n         }, {\n             title: 'another book',\n             author: 'fred'\n         }]\n     };\n\n     // the query\n     var query = {\n         books: {\n             $queryMany: {\n                 author: {\n                     $equals: 'fred'\n                 }\n             }\n         }\n     };"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryComparisons.js",
+      "line": 343,
+      "description": "Matches a query against an array of models. i.e. return querify.some(modelArray, query)",
+      "itemtype": "method",
+      "name": "$querySome",
+      "params": [
+        {
+          "name": "modelArray",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "",
+        "type": "Boolean"
+      },
+      "example": [
+        "\n\n// same as $queryMany except iterates until finds first match, no matches or errors\n"
+      ],
+      "class": "QueryComparisons",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryPromise.js",
+      "line": 28,
+      "description": "Extracts items from an object dictionary using a query object",
+      "itemtype": "method",
+      "name": "extract",
+      "async": 1,
+      "params": [
+        {
+          "name": "modelDictionary",
+          "description": "An object dictionary of model objects",
+          "type": "Object"
+        },
+        {
+          "name": "query",
+          "description": "The query object",
+          "type": "Object"
+        }
+      ],
+      "return": {
+        "description": "an  dictionary of model objects.",
+        "type": "Object"
+      },
+      "example": [
+        "\n     // the data to query\n     var modelDictionary = {\n         \"item1\": {\n             name: 'cyborg',\n             age: 123\n         },\n         \"item2\": {\n             name: 'borg',\n             age: 223\n         }\n     };\n\n     // the query\n     var query = {\n         name: {\n             $equals: 'cyborg'\n         }\n     };\n\n     // run the query\n     querify.extract(modelDictionary, query)\n             .then(function (results) {\n                 // the results, an extracted model dictionary\n             }).catch (function (error) {\n                 // catch any errors\n             })\n             .then(function () {\n                 // finally\n             });"
+      ],
+      "class": "QueryPromise",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryPromise.js",
+      "line": 110,
+      "description": "Filters an array of model objects against a query object",
+      "itemtype": "method",
+      "name": "filter",
+      "async": 1,
+      "params": [
+        {
+          "name": "modelArray",
+          "description": "An array of data objects",
+          "type": "Array"
+        },
+        {
+          "name": "query",
+          "description": "The query object",
+          "type": "Object"
+        }
+      ],
+      "return": {
+        "description": "who's result is set to an {Array} of filtered objects.",
+        "type": "Promise"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = [{\n         name: 'cyborg',\n         age: 123\n     }, {\n         name: 'borg',\n         age: 223\n     }];\n\n     // the query\n     var query = {\n         name: {\n             $equals: 'cyborg'\n         }\n     };\n\n     // run the query\n     querify.filter(model, query)\n             .then(function (results) {\n                 // the results, a filtered array\n             }).catch (function (error) {\n                 // catch any errors\n             })\n             .then(function () {\n                 // finally\n             });"
+      ],
+      "class": "QueryPromise",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryPromise.js",
+      "line": 188,
+      "description": "Tests if an array of model objects match against a query object",
+      "itemtype": "method",
+      "name": "many",
+      "async": 1,
+      "params": [
+        {
+          "name": "modelArray",
+          "description": "An array of data objects",
+          "type": "Array"
+        },
+        {
+          "name": "query",
+          "description": "The query object",
+          "type": "Object"
+        }
+      ],
+      "return": {
+        "description": "who's result is set to a {Boolean}.",
+        "type": "Promise"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = [{\n         name: 'cyborg',\n         age: 123\n     }, {\n         name: 'borg',\n         age: 223\n     }];\n\n     // the query\n     var query = {\n             name: {\n             $right: 'g'\n         },\n         age: {\n             $typeof: 'number'\n         }\n     };\n\n     // run the query\n     querify.many(model, query)\n             .then(function (result) {\n                 // the result, true or false\n             })\n             .catch (function (error) {\n                 // catch any errors\n             })\n             .then(function () {\n                 // finally\n             });"
+      ],
+      "class": "QueryPromise",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryPromise.js",
+      "line": 252,
+      "description": "Tests one model object against a query object",
+      "itemtype": "method",
+      "name": "one",
+      "async": 1,
+      "params": [
+        {
+          "name": "model",
+          "description": "The data object",
+          "type": "Object"
+        },
+        {
+          "name": "query",
+          "description": "The query object",
+          "type": "Object"
+        }
+      ],
+      "return": {
+        "description": "who's result is set to a {Boolean}.",
+        "type": "Promise"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = {\n         name: 'cyborg',\n         age: 123\n     };\n\n     // the query\n     var query = {\n         name: {\n             $right: 'g',\n             $and: {\n                 $left: 'cy'\n             }\n         },\n         $and: {\n             age: {\n                 $typeof: 'number',\n                 $and: {\n                     $equals: 123\n                 }\n             }\n         }\n     };\n\n     // run the query\n     querify.one(model, query)\n             .then(function (result) {\n                 // the result\n             }).catch (function (error) {\n                 // catch any errors\n             })\n             .then(function () {\n                 // finally\n             });"
+      ],
+      "class": "QueryPromise",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryPromise.js",
+      "line": 314,
+      "description": "Tests if any of the models from an array match against a query object",
+      "itemtype": "method",
+      "name": "some",
+      "params": [
+        {
+          "name": "modelArray",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "description": ""
+        }
+      ],
+      "return": {
+        "description": "who's result is set to a {Boolean}.",
+        "type": "Promise"
+      },
+      "example": [
+        "\n     // the data to query\n     var model = [{\n         name: 'cyborg',\n         age: 123\n     }, {\n         name: 'borg',\n         age: 223\n     }];\n\n     // the query\n     var query = {\n         age: {\n             $equals: 223\n         }\n     };\n\n     // run the query\n     querify.some(model, query)\n             .then(function (result) {\n                 // the result, true or false\n             })\n             .catch (function (error) {\n                 // catch any errors\n             })\n             .then(function () {\n                 // finally\n             });"
+      ],
+      "class": "QueryPromise",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\QueryStackTrace.js",
+      "line": 17,
+      "description": "Stores the trace stack of operations and results made my Query or QueryPromise",
+      "itemtype": "property",
+      "name": "stack",
+      "type": "Array",
+      "class": "QueryStackTrace",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\global.js",
+      "line": 100,
+      "description": "A reference to the global QueryPromise instance.",
+      "itemtype": "property",
+      "name": "promise",
+      "type": "QueryPromise",
+      "example": [
+        "\n\n     // referencing the Promise instance\n     var querify = window.querify.promise;\n\n     // accessing the interface\n     querify.one(model, query)\n             .then(function(result) {\n\n             });"
+      ],
+      "class": "Global",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\global.js",
+      "line": 126,
+      "description": "A reference to the synchronous Query global instance.",
+      "itemtype": "property",
+      "name": "sync",
+      "type": "Query",
+      "example": [
+        "\n\n     // referencing the synchronous instance\n     var querify = window.querify.sync;\n\n     // accessing the interface\n     querify.one(model, query);"
+      ],
+      "class": "Global",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\global.js",
+      "line": 140,
+      "description": "A reference to the Query class type for custom initiation.",
+      "itemtype": "property",
+      "name": "Query",
+      "type": "Query",
+      "class": "Global",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\global.js",
+      "line": 145,
+      "description": "A reference to the QueryOperations class type for custom initiation.",
+      "itemtype": "property",
+      "name": "QueryOperations",
+      "type": "QueryOperations",
+      "class": "Global",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\global.js",
+      "line": 150,
+      "description": "A reference to the QueryStackTrace class type for custom initiation.",
+      "itemtype": "property",
+      "name": "QueryStackTrace",
+      "type": "QueryStackTrace",
+      "class": "Global",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\global.js",
+      "line": 157,
+      "description": "An reference to the QueryPromise class type for custom initiation.",
+      "itemtype": "property",
+      "name": "QueryPromise",
+      "type": "QueryPromise",
+      "class": "Global",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\global.js",
+      "line": 166,
+      "description": "An reference to the QueryPromiseOperations class type for custom initiation.",
+      "itemtype": "property",
+      "name": "QueryPromiseOperations",
+      "type": "QueryPromiseOperations",
+      "class": "Global",
+      "module": "QuerifyJs"
+    },
+    {
+      "file": "src\\global.js",
+      "line": 175,
+      "description": "An reference to the QueryPromiseComparisons class type for custom initiation.",
+      "itemtype": "property",
+      "name": "QueryPromiseComparisons",
+      "type": "QueryPromiseComparisons",
+      "class": "Global",
+      "module": "QuerifyJs"
+    }
+  ],
+  "warnings": []
 }

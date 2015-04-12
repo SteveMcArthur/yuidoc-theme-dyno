@@ -20,49 +20,53 @@
   <link rel="stylesheet" href="assets/lib/highlight/dist/default.min.css">
   <link rel="stylesheet" type="text/css" href="assets/lib/font-awesome/4.1.0/font-awesome.min.css"/>
 
-  <script type="application/javascript" src="bower_components/angular/angular.js"></script>
-  <script type="application/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>
-  <script type="application/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
-  <script type="application/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 
   <script>(function(H) {
     H.className = H.className.replace(/\bnoJS\b/g, 'js')
   })(document.documentElement)</script>
-
 </head>
 
-<body scroll-to-offset="60">
+<body scroll-to-offset="60" ng-class="{hidden: !resolved}">
 
-<div ng-include="'app/view/partial/header.html'"></div>
-<div ng-include="'app/view/partial/sidebar/iconSidebar.html'"></div>
+<header class="header">
+  <app-header project="project"></app-header>
+</header>
+
+<icon-sidebar></icon-sidebar>
 
 <div class="container-fluid">
+
   <div class="main">
-    <div ng-controller="sidebarController">
+
+    <div>
       <div id="apiSidebar" class="popoverSidebar collapse slide" role="navigation">
-        <div ng-include="'app/view/partial/sidebar/allSidebar.html'"></div>
+        <filter-all-sidebar modules="modules" global-classes="globalClasses"></filter-all-sidebar>
       </div>
       <div id="modulesSidebar" class="popoverSidebar collapse">
-        <div ng-include="'app/view/partial/sidebar/modulesOnlySidebar.html'"></div>
+        <filter-modules-sidebar modules="modules"></filter-modules-sidebar>
       </div>
       <div id="classesSidebar" class="popoverSidebar collapse">
-        <div ng-include="'app/view/partial/sidebar/classesOnlySidebar.html'"></div>
+        <filter-classes-sidebar classes="classes"></filter-classes-sidebar>
       </div>
       <div id="methodsSidebar" class="popoverSidebar collapse">
-        <div ng-include="'app/view/partial/sidebar/methodsOnlySidebar.html'"></div>
+        <filter-methods-sidebar class-items="classItems"></filter-methods-sidebar>
       </div>
       <div id="propertiesSidebar" class="popoverSidebar collapse">
-        <div ng-include="'app/view/partial/sidebar/propertiesOnlySidebar.html'"></div>
+        <filter-properties-sidebar class-items="classItems"></filter-properties-sidebar>
       </div>
     </div>
 
     <div class="docMain">
-      <div ng-include="'app/view/partial/doc/modules.html'"></div>
-      <div ng-include="'app/view/partial/doc/globalClasses.html'"></div>
+      <module-list modules="modules"></module-list>
+      <global-classes global-classes="globalClasses"></global-classes>
     </div>
   </div>
 </div>
 
+<script type="application/javascript" src="bower_components/angular/angular.js"></script>
+<script type="application/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script type="application/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+<script type="application/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 <script type="application/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="application/javascript" src="assets/lib/jquery/easing/jquery.easing.min.js"></script>
 <script type="application/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -70,6 +74,7 @@
 <script type="application/javascript" src="assets/lib/highlight/dist/highlight.min.js"></script>
 <script type="application/javascript" src="bower_components/es6-promise/promise.min.js"></script>
 <script type="application/javascript" src="bower_components/querifyjs/dist/querify.min.js"></script>
-<script type="application/javascript" src="../dist/yuidoc-theme-dyno.min.js"></script>
+<script type="application/javascript" src="dist/yuidoc-theme-dyno.min.js"></script>
+
 </body>
 </html>

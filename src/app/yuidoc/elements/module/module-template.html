@@ -1,0 +1,13 @@
+<div class="heading">
+  <h1 id="{{module.name | idEncode}}" class="page-header">
+    <i class="fa fa-cube moduleItemType"></i><span ng-bind="module.name"></span>
+  </h1>
+</div>
+
+<div ng-if="module.description !== undefined"
+     class="summary description markdown-body"
+     ng-bind-html="module.description"></div>
+
+<div class="classes" ng-repeat="(key, class) in getClassesByModuleName(module.name) | orderBy:['name']">
+  <class module="module" class="class"></class>
+</div>

@@ -1,6 +1,10 @@
 (function() {
   'use strict';
-  var app = angular.module('app', ['app.controllers', 'app.filters', 'app.directives']);
+
+  var app = angular.module('app', [
+    'app.core',
+    'app.yuidoc'
+  ]);
 
   marked.setOptions({
     highlight: function(code) {
@@ -12,4 +16,4 @@
   app.constant('hljs', window.hljs);
   app.constant('yuidocDataPath', 'dist/doc/data.json');
   app.constant('querifySync', querify.sync);
-}());
+})();
