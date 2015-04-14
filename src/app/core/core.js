@@ -1,4 +1,5 @@
 (function() {
+  'use strict';
   // create the core module namespaces
   angular.module('app.core.services', ['ngResource']);
   angular.module('app.core.filters', []);

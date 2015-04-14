@@ -1,13 +1,11 @@
 .tree {
-
   /* top level */
   > .tree-list, > .tl {
     position: relative;
 
     > .tree-node, > .tn {
-      padding-left: 0em;
+      padding-left: 0;
     }
-
   }
 
   .tree-list, .tl {
@@ -16,12 +14,10 @@
     margin: 0;
     padding: 0;
 
-    .tree-list.collapsing, .tl.collapsing {
+    &.collapsing {
       position: static;
     }
-
   }
-
 }
 
 .tree-node, .tn {
@@ -40,7 +36,6 @@
   overflow: hidden;
 
   &:before {
-
     content: '';
     position: absolute;
     height: inherit;
@@ -53,5 +48,4 @@
   > span {
     vertical-align: top;
   }
-
 }

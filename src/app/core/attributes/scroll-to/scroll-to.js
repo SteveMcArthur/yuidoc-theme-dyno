@@ -3,7 +3,6 @@
 
   var module = angular.module('app.core.attributes');
   module.directive('scrollTo', function() {
-
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
@@ -95,8 +94,9 @@
             }
           );
 
-          if (preventDefault === true)
+          if (preventDefault === true) {
             event.preventDefault();
+          }
         });
       }
     };

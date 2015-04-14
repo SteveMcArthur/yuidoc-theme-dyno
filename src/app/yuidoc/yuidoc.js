@@ -1,4 +1,5 @@
 (function() {
+  'use strict';
   angular.module('app.yuidoc.services', ['ngResource']);
   angular.module('app.yuidoc.elements', ['ngSanitize', 'app.yuidoc.services']);
 

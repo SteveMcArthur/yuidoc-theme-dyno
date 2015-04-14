@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   var module = angular.module('app.yuidoc.elements');
-  module.directive("filterAllSidebar", function($sce, yuidocDataService) {
+  module.directive('filterAllSidebar', function($sce, yuidocDataService) {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/filter-sidebars/templates/filter-all-sidebar-template.html',
@@ -18,53 +18,54 @@
           return yuidocDataService.getClassItemsByModuleAndClassName(moduleName, className);
         };
       }
-    }
+    };
   });
 
-  module.directive("filterClassesSidebar", function() {
+  module.directive('filterClassesSidebar', function() {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/filter-sidebars/templates/filter-classes-sidebar-template.html',
       scope: {
         classes: '='
       }
-    }
+    };
   });
 
-  module.directive("filterModulesSidebar", function() {
+  module.directive('filterModulesSidebar', function() {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/filter-sidebars/templates/filter-modules-sidebar-template.html',
       scope: {
         modules: '='
       }
-    }
+    };
   });
 
-  module.directive("filterMethodsSidebar", function() {
+  module.directive('filterMethodsSidebar', function() {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/filter-sidebars/templates/filter-methods-sidebar-template.html',
       scope: {
         classItems: '='
       }
-    }
+    };
   });
 
-  module.directive("filterPropertiesSidebar", function() {
+  module.directive('filterPropertiesSidebar', function() {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/filter-sidebars/templates/filter-properties-sidebar-template.html',
       scope: {
         classItems: '='
       }
-    }
+    };
   });
 
-  module.directive("classItemsList", function(yuidocDataService) {
+  module.directive('classItemsList', function(yuidocDataService) {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/filter-sidebars/templates/class-items-list-template.html',
+      replace: true,
       scope: {
         module: '=',
         className: '='
@@ -74,7 +75,7 @@
           return yuidocDataService.getClassItemsByModuleAndClassName(moduleName, className);
         };
       }
-    }
+    };
   });
 
 })();
