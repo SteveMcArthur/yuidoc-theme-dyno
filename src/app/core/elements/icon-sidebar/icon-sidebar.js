@@ -1,17 +1,15 @@
 (function() {
+  'use strict';
 
   var module = angular.module('app.core.elements');
-
-  module.directive("iconSidebar", function(iconSidebarService) {
-
+  module.directive('iconSidebar', function(iconSidebarService) {
     return {
       restrict: 'E',
       templateUrl: 'app/core/elements/icon-sidebar/icon-sidebar-template.html',
       scope: {},
       link: function($scope, element, attrs) {
-
         function onSidebarClick(event) {
-          if (event.currentTarget.classList.contains("active")) {
+          if (event.currentTarget.classList.contains('active')) {
             iconSidebarService.closeSidebar(event.currentTarget);
           } else {
             iconSidebarService.closeOpenSidebars();
@@ -33,9 +31,6 @@
         })();
 
       }
-
-    }
-
+    };
   });
-
 })();

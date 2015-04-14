@@ -2,7 +2,7 @@
 
   var module = angular.module('app.yuidoc.elements');
 
-  module.directive("classItem", function($sce, marked) {
+  module.directive('classItem', function($sce, marked) {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/class-item/templates/class-item-template.html',
@@ -21,24 +21,25 @@
 
         // make all example item descriptions safe to parse as html
         if (classItem.example) {
-          for (var index = 0; index < classItem.example.length; index++)
+          for (var index = 0; index < classItem.example.length; index++) {
             classItem.example[index] = $sce.trustAsHtml(marked(classItem.example[index]));
+          }
         }
       }
-    }
+    };
   });
 
-  module.directive("classItemAttribute", function() {
+  module.directive('classItemAttribute', function() {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/class-item/templates/attribute-template.html',
       scope: {
         classItem: '='
       }
-    }
+    };
   });
 
-  module.directive("classItemMethod", function($sce, marked) {
+  module.directive('classItemMethod', function($sce, marked) {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/class-item/templates/method-template.html',
@@ -47,13 +48,14 @@
       },
       link: function($scope) {
         // make the return description safe to parse as html
-        if ($scope.classItem.return && $scope.classItem.return.description)
+        if ($scope.classItem.return && $scope.classItem.return.description) {
           $scope.classItem.return.description = $sce.trustAsHtml(marked($scope.classItem.return.description));
+        }
       }
-    }
+    };
   });
 
-  module.directive("classItemParams", function($sce, marked) {
+  module.directive('classItemParams', function($sce, marked) {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/class-item/templates/params-template.html',
@@ -71,10 +73,10 @@
           }
         }
       }
-    }
+    };
   });
 
-  module.directive("classItemProps", function($sce, marked) {
+  module.directive('classItemProps', function($sce, marked) {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/class-item/templates/props-template.html',
@@ -92,17 +94,17 @@
           }
         }
       }
-    }
+    };
   });
 
-  module.directive("classItemProperty", function() {
+  module.directive('classItemProperty', function() {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/class-item/templates/property-template.html',
       scope: {
         classItem: '='
       }
-    }
+    };
   });
 
 })();

@@ -19,11 +19,13 @@ module.exports = function(grunt, gruntRootPath) {
   env.TEST_SRC_DIR = pathUtil.join(env.TEST_DIR, '');
   env.TEST_OUT_DIR = pathUtil.join(env.TEST_DIR, 'out');
 
+  env.GRUNT_DIR = pathUtil.join(env.APP_DIR, 'grunt');
   env.DIST_DIR = pathUtil.join(env.SRC_DIR, 'dist');
 
   var outFilename = pathUtil.basename(process.cwd());
-  if (outFilename.substring(outFilename.length - 2) === 'js')
+  if (outFilename.substring(outFilename.length - 2) === 'js') {
     outFilename = outFilename.substring(0, outFilename.length - 2);
+  }
 
   env.SRC_FILE = pathUtil.join(env.SRC_DIR, outFilename + '.js');
   env.OUT_BUNDLE_FILE = outFilename + '.js';

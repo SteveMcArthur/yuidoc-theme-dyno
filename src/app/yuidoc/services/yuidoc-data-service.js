@@ -1,5 +1,4 @@
 (function() {
-
   'use strict';
 
   var services = angular.module('app.yuidoc.services');
@@ -25,8 +24,9 @@
           });
       },
       get dataset() {
-        if (this.dataset_ === null)
-          throw Error("YuidocDataService: dataset is not loaded.");
+        if (this.dataset_ === null) {
+          throw Error('YuidocDataService: dataset is not loaded.');
+        }
         return this.dataset_;
       },
       getProject: function() {
@@ -66,5 +66,4 @@
 
     return new YuidocDataService();
   });
-
 }());

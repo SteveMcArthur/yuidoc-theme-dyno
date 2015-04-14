@@ -3,7 +3,7 @@
 
   var module = angular.module('app.yuidoc.elements');
 
-  module.directive("class", function($sce, marked, yuidocDataService) {
+  module.directive('class', function($sce, marked, yuidocDataService) {
     return {
       restrict: 'E',
       templateUrl: 'app/yuidoc/elements/class/class-template.html',
@@ -20,7 +20,7 @@
           $class.description = $sce.trustAsHtml(marked($class.description));
         }
       }
-    }
+    };
   });
 
 })();

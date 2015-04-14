@@ -5,7 +5,7 @@ module.exports = {
 
   'compile': [
     'clean:srcArtifacts',
-    'jshint:compile',
+    'jshint:check',
     'uglify:minifiyToDist'
   ],
 

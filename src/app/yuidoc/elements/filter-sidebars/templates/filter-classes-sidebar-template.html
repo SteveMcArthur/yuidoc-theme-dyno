@@ -1,9 +1,11 @@
 <tree-sidebar>
-  <ul class="tl nav" role="menu">
-    <li class="tn" ng-repeat="class in classes | objectFilter: {'name': treeSidebarFilterText} | orderBy:['name']">
-      <a class="ti ti-default" ng-href="#{{class.module | idEncode}}_{{class.name | idEncode}}" scroll-to>
-        <i class="fa fa-cube classItemType"></i><span ng-bind="class.name"></span>
-      </a>
-    </li>
-  </ul>
+  <tree>
+    <tree-list>
+      <tree-node ng-repeat="class in classes | objectFilter: {'name': treeSidebarFilterText} | orderBy:['name']">
+        <a class="ti ti-default" ng-href="#{{class.module | idEncode}}_{{class.name | idEncode}}" scroll-to>
+          <i class="fa fa-cube classItemType"></i><span ng-bind="class.name"></span>
+        </a>
+      </tree-node>
+    </tree-list>
+  </tree>
 </tree-sidebar>

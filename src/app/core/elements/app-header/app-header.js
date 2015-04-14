@@ -1,6 +1,7 @@
 (function() {
+  'use strict';
   var module = angular.module('app.core.elements');
-  module.directive("appHeader", function() {
+  module.directive('appHeader', function() {
     return {
       restrict: 'E',
       replace: true,
@@ -8,6 +9,6 @@
       scope: {
         project: '='
       }
-    }
+    };
   });
 })();
