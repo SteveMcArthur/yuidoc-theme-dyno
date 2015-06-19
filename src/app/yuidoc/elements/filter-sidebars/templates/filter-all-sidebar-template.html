@@ -1,4 +1,9 @@
-<tree-sidebar>
+<tree-sidebar id="testSidebar1">
+
+  <div>
+    <input class="form-control" type="text" ng-model="filterText" placeholder="Filter items">
+  </div>
+
   <tree>
 
     <tree-list ng-if="modules!==undefined">
@@ -18,7 +23,7 @@
               <i class="fa fa-cube classItemType"></i><span ng-bind="className"></span>
             </tree-item>
             <tree-list id="{{module.name}}_{{className}}_properties">
-              <class-items-list module="module" class-name="className"></class-items-list>
+              <class-items-list module="module" class-name="className" filter-text="$parent.filterText"></class-items-list>
             </tree-list>
           </tree-node>
         </tree-list>
@@ -32,7 +37,7 @@
           <i class="fa fa-cube classItemType"></i><span ng-bind="className"></span>
         </tree-item>
         <tree-list id="{{className}}_properties">
-          <class-items-list module="{}" class-name="className"></class-items-list>
+          <class-items-list module="{}" class-name="className"  filter-text="$parent.filterText"></class-items-list>
         </tree-list>
       </tree-node>
     </tree-list>

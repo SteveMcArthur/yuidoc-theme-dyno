@@ -28,10 +28,10 @@
    Tree
    ========================================================================== */
 //Default tree
-@import "tree/tree";
-@import "tree/default/treeItemDefault";
-@import "tree/default/treeItemPrimary";
-@import "tree/default/treeItemSuccess";
-@import "tree/default/treeItemInfo";
-@import "tree/default/treeItemWarning";
-@import "tree/default/treeItemDanger";
+@import "../app/core/elements/tree/tree";
+@import "../app/core/elements/tree/skins/treeItemDefault";
+@import "../app/core/elements/tree/skins/treeItemPrimary";
+@import "../app/core/elements/tree/skins/treeItemSuccess";
+@import "../app/core/elements/tree/skins/treeItemInfo";
+@import "../app/core/elements/tree/skins/treeItemWarning";
+@import "../app/core/elements/tree/skins/treeItemDanger";

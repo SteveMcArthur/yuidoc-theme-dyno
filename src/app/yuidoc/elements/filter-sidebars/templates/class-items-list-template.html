@@ -1,5 +1,5 @@
 <tree-node
-    ng-repeat="classItem in getClassItemsByModuleAndClassName(module.name, className) | filter:{'name':treeSidebarFilterText} | orderBy:['itemtype', 'name']">
+    ng-repeat="classItem in getClassItemsByModuleAndClassName(module.name, className) | filter:{'name':filterText} | orderBy:['itemtype', 'name']">
 
   <tree-item skin="default"
              ng-href="#{{module.name | idEncode}}_{{className | idEncode}}_{{classItem.name | idEncode}}"

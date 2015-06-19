@@ -1,8 +1,12 @@
 <tree-sidebar>
+  <div>
+    <input class="form-control" type="text" ng-model="filterText" placeholder="Filter items">
+  </div>
+
   <tree>
     <tree-list>
       <tree-node
-        ng-repeat="classItem in classItems | filter: {itemtype: 'property'}:true | objectFilter: {'name': treeSidebarFilterText} | orderBy:['itemtype', 'name']">
+        ng-repeat="classItem in classItems | filter: {itemtype: 'property'}:true | objectFilter: {'name': $parent.filterText} | orderBy:['itemtype', 'name']">
         <tree-item skin="default"
           ng-href="#{{classItem.module | idEncode}}_{{classItem.class | idEncode}}_{{classItem.name | idEncode}}"
           scroll-to>

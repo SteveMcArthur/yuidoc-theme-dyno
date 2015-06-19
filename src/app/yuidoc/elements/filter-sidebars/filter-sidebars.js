@@ -17,6 +17,8 @@
         $scope.getClassItemsByModuleAndClassName = function(moduleName, className) {
           return yuidocDataService.getClassItemsByModuleAndClassName(moduleName, className);
         };
+
+        $scope.filterText = '';
       }
     };
   });
@@ -27,6 +29,9 @@
       templateUrl: 'app/yuidoc/elements/filter-sidebars/templates/filter-classes-sidebar-template.html',
       scope: {
         classes: '='
+      },
+      link: function($scope, $element, $attrs) {
+        $scope.filterText = '';
       }
     };
   });
@@ -37,6 +42,9 @@
       templateUrl: 'app/yuidoc/elements/filter-sidebars/templates/filter-modules-sidebar-template.html',
       scope: {
         modules: '='
+      },
+      link: function($scope, $element, $attrs) {
+        $scope.filterText = '';
       }
     };
   });
@@ -47,6 +55,9 @@
       templateUrl: 'app/yuidoc/elements/filter-sidebars/templates/filter-methods-sidebar-template.html',
       scope: {
         classItems: '='
+      },
+      link: function($scope, $element, $attrs) {
+        $scope.filterText = '';
       }
     };
   });
@@ -57,6 +68,9 @@
       templateUrl: 'app/yuidoc/elements/filter-sidebars/templates/filter-properties-sidebar-template.html',
       scope: {
         classItems: '='
+      },
+      link: function($scope, $element, $attrs) {
+        $scope.filterText = '';
       }
     };
   });
@@ -68,7 +82,8 @@
       replace: true,
       scope: {
         module: '=',
-        className: '='
+        className: '=',
+        filterText: '='
       },
       link: function($scope) {
         $scope.getClassItemsByModuleAndClassName = function(moduleName, className) {

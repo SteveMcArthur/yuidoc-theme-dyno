@@ -5,7 +5,6 @@ module.exports = {
 
   'compile': [
     'clean:srcArtifacts',
-    'jshint:check',
     'uglify:minifiyToDist'
   ],
 
@@ -28,6 +27,7 @@ module.exports = {
   ],
 
   'deploy': [
+    'jshint:check',
     'clean:deployArtifacts',
     'compile',
     'shell:cloneGhPages',

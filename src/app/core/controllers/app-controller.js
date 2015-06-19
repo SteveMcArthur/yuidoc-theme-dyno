@@ -1,6 +1,5 @@
 (function() {
   'use strict';
-
   var controllers = angular.module('app.core.controllers');
   controllers.controller('appController', function appController($scope, yuidocDataService) {
       $scope.resolved = false;
@@ -19,5 +18,4 @@
         });
     }
   );
-
 })();
